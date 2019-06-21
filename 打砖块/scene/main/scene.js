@@ -1,26 +1,35 @@
-var Scene = function(game) {
-    var s = {
-        game: game,
+class Scene extends GuaScene {
+    constructor(game) {
+        super(game)
+        this.game = game
+        this.paddle = Paddle(game)
+        this.ball = Ball(game)
+        this.score = 0
+        this.blocks = loadLevel(game, 1)
+        this.__init()
     }
-    // 初始化
-    var paddle = Paddle(game)
-    var ball = Ball(game)
+    __init() {
+        var game = this.game
+        var paddle = this.paddle
+        var ball = this.ball
+        var blocks = this.blocks
 
-    var score = 0
+        game.registerAction('a', function(){
+            paddle.moveLeft()
+        })
+        game.registerAction('d', function(){
+            paddle.moveRight()
+        })
+        game.registerAction('f', function(){
+            ball.fire()
+        })
+    }
+    draw() {
+        var game = this.game
+        var paddle = this.paddle
+        var ball = this.ball
+        var blocks = this.blocks
 
-    var blocks = loadLevel(game, 1)
-
-    game.registerAction('a', function(){
-        paddle.moveLeft()
-    })
-    game.registerAction('d', function(){
-        paddle.moveRight()
-    })
-    game.registerAction('f', function(){
-        ball.fire()
-    })
-
-    s.draw = function() {
         // draw 背景
         game.context.fillStyle = "#554"
         game.context.fillRect(0, 0, 400, 300)
@@ -35,9 +44,15 @@ var Scene = function(game) {
             }
         }
         // draw labels
-        game.context.fillText('分数: ' + score, 10, 290)
+        game.context.fillText('分数: ' + this.score, 10, 290)
     }
-    s.update = function() {
+
+    update() {
+        var game = this.game
+        var paddle = this.paddle
+        var ball = this.ball
+        var blocks = this.blocks
+
         if (window.paused) {
             return
         }
@@ -67,34 +82,38 @@ var Scene = function(game) {
         }
     }
 
-    // mouse event
-    var enableDrag = false
-    game.canvas.addEventListener('mousedown', function(event) {
-        var x = event.offsetX
-        var y = event.offsetY
-        log(x, y, event)
-        // 检查是否点中了 ball
-        if (ball.hasPoint(x, y)) {
-            // 设置拖拽状态
-            enableDrag = true
-        }
-    })
-    game.canvas.addEventListener('mousemove', function(event) {
-        var x = event.offsetX
-        var y = event.offsetY
-        // log(x, y, 'move')
-        if (enableDrag) {
-            log(x, y, 'drag')
-            ball.x = x
-            ball.y = y
-        }
-    })
-    game.canvas.addEventListener('mouseup', function(event) {
-        var x = event.offsetX
-        var y = event.offsetY
-        log(x, y, 'up')
-        enableDrag = false
-    })
+    mouseEvent() {
+        var game = this.game
+        var paddle = this.paddle
+        var ball = this.ball
+        var blocks = this.blocks
 
-    return s
+        var enableDrag = false
+        game.canvas.addEventListener('mousedown', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            log(x, y, event)
+            // 检查是否点中了 ball
+            if (ball.hasPoint(x, y)) {
+                // 设置拖拽状态
+                enableDrag = true
+            }
+        })
+        game.canvas.addEventListener('mousemove', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            // log(x, y, 'move')
+            if (enableDrag) {
+                log(x, y, 'drag')
+                ball.x = x
+                ball.y = y
+            }
+        })
+        game.canvas.addEventListener('mouseup', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            log(x, y, 'up')
+            enableDrag = false
+        })
+    }
 }
