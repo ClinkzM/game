@@ -16,6 +16,12 @@ var Paddle = function() {
         y: 200,
         speed: 5,
     }
+    o.moveLeft = function() {
+        o.x = o.x - o.speed
+    }
+    o.moveRight = function() {
+        o.x = o.x + o.speed
+    }
     return o
 }
 
@@ -50,9 +56,9 @@ var __main = function() {
     setInterval(function() {
         // update
         if (leftDown) {
-            paddle.x = paddle.x - paddle.speed
+            paddle.moveLeft()
         } else if (rightDown) {
-            paddle.x = paddle.x + paddle.speed
+            paddle.moveRight()
         }
         // 24:23, 待办：做一个判断，挡板不能超过 canvas 边界
 
