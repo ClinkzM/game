@@ -1,19 +1,46 @@
+var loadLevel = function(n) {
+    var len = n - 1
+    var level = levels[len]
+    var blocks = []
+    for (var i = 0; i < level.length; i++) {
+        var p = level[i]
+        var b = Block(p)
+        blocks.push(b)
+    }
+    return blocks
+}
+
+var enableDebugMode = function(enable) {
+    if (!enable) {
+        return
+    }
+    window.paused = false
+    window.addEventListener('keydown', function(event) {
+        var k = event.key
+        if (k == 'p') {
+            window.paused = !window.paused
+        } else if ('123456789'.includes(k)) {
+            blocks = loadLevel(Number(k))
+        }
+    })
+    // 控制速度
+    document.querySelector('#id-input-speed').addEventListener('input', function(event) {
+        var input = event.target
+        // log(event, input.value)
+        window.fps = Number(input.value)
+    })
+}
+var blocks = []
 var __main = function() {
+    enableDebugMode(true)
+
     var fps = 30
     var game = GuaGame(fps)
 
     var paddle = Paddle()
     var ball = Ball()
 
-    var blocks = []
-    for (var i = 0; i < 3; i++) {
-        var b = Block()
-        b.x = i * 100
-        b.y = i * 50
-        blocks.push(b)
-    }
-
-    var paused = false
+    blocks = loadLevel(1)
 
     // events
     game.registerAction('a', function() {
@@ -25,17 +52,9 @@ var __main = function() {
     game.registerAction('f', function() {
         ball.fire()
     })
-    // game.registerAction('p', function() {
-    //     paused = !paused
-    // })
-    window.addEventListener('keydown', function(event) {
-        if (event.key == 'p') {
-            paused = !paused
-        }
-    })
 
     game.update = function() {
-        if (paused) {
+        if (window.paused) {
             return
         }
         ball.move()
