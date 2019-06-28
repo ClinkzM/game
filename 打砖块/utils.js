@@ -1,9 +1,20 @@
 var log = console.log.bind(console)
 
+var e = selector => document.querySelector(selector)
+
+// var log = function(...args) {
+//     let v = e('#id-text-log').value
+//     e('#id-text-log').value = v + '\n' + args
+// }
+
 var imageFromPath = function(path) {
     var img = new Image()
     img.src = path
     return img
+}
+
+var imageByName = function(name) {
+
 }
 
 var rectIntersects = function(a, b) {
