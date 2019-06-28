@@ -1,13 +1,21 @@
 var log = console.log.bind(console)
 
-// 32:49
 var imageFromPath = function(path) {
     var img = new Image()
     img.src = path
     return img
 }
 
-// 31:50
+var rectIntersects = function(a, b) {
+    var o = a
+    if (b.y > o.y && b.y < o.y + o.image.height) {
+        if (b.x > o.x && b.x < o.x + o.image.width) {
+            return true
+        }
+    }
+    return false
+}
+
 var Paddle = function() {
     var image = imageFromPath('paddle.png')
     var o = {
@@ -16,26 +24,35 @@ var Paddle = function() {
         y: 250,
         speed: 15,
     }
+    o.move = function(x) {
+        if (x < 0) {
+            x = 0
+        }
+        if (x > 400 - o.image.width) {
+            x = 400 - o.image.width
+        }
+        o.x = x
+    }
     o.moveLeft = function() {
-        o.x = o.x - o.speed
+        var left = o.x - o.speed
+        o.move(left)
     }
     o.moveRight = function() {
-        o.x = o.x + o.speed
+        var right = o.x + o.speed
+        o.move(right)
     }
     o.collide = function(ball) {
         if (ball.y + ball.image.height > o.y) {
             if (ball.x > o.x && ball.x < o.x + o.image.width) {
-                log('相撞')
+                // log('相撞')
                 return true
             }
         }
         return false
     }
-    // 24:23, 待办：做一个判断，挡板不能超过 canvas 边界
     return o
 }
 
-// 01:02:45
 var Ball = function() {
     var image = imageFromPath('ball.png')
     var o = {
@@ -68,17 +85,38 @@ var Ball = function() {
     o.fire = function() {
         o.fired = true
     }
-    // 24:23, 待办：做一个判断，挡板不能超过 canvas 边界
+    o.rebound = function() {
+        o.speedY = -o.speedY
+        // o.speedX = -o.speedX
+    }
+
+    // 直播 - 1 24:23, 待办：做一个判断，挡板不能超过 canvas 边界
     return o
 }
 
+var Block = function() {
+    var image = imageFromPath('block.png')
+    var o = {
+        image: image,
+        x: 100,
+        y: 100,
+        w: 40,
+        h: 19,
+        alive: true,
+    }
+    o.kill = function() {
+        o.alive = false
+    }
+    o.collide = function(b) {
+        return o.alive && (rectIntersects(o, b) || rectIntersects(b, o))
+    }
 
-// 43:02
+    return o
+}
+
 var Guagame = function() {
-    // 50:00
     var g = {
         actions: {},
-        // 51:20 因为我要存储哪个按键被按下来了
         keydowns: {},
     }
     var canvas = document.querySelector('#id-canvas')
@@ -92,19 +130,16 @@ var Guagame = function() {
 
     // events
     window.addEventListener('keydown', function(event) {
-        // 51:20 因为我要存储哪个按键被按下来了
         g.keydowns[event.key] = true
     })
     window.addEventListener('keyup', function(event) {
-        // 51:37 我就可以通过这个设置一个状态了，你这个按键被按下来了，我就有了
         g.keydowns[event.key] = false
     })
-    // 51:58
+
     g.registerAction = function(key, callback) {
         g.actions[key] = callback
     }
 
-    // 44:40
     setInterval(function() {
         // events
         var actions = Object.keys(g.actions)
@@ -129,8 +164,15 @@ var __main = function() {
     var game = Guagame()
 
     var paddle = Paddle()
-    // 01:01:40
     var ball = Ball()
+
+    var blocks = []
+    for (var i = 0; i < 3; i++) {
+        var b = Block()
+        b.x = i * 100
+        b.y = i * 50
+        blocks.push(b)
+    }
 
     var leftDown = false
     var rightDown = false
@@ -150,13 +192,27 @@ var __main = function() {
         ball.move()
         // 判断球和挡板相撞
         if (paddle.collide(ball)) {
-            ball.speedY = -ball.speedY
+            ball.rebound()
+        }
+        // 判断 ball 和 blocks 相撞
+        for (var i = 0; i < blocks.length; i++) {
+            var block = blocks[i]
+            if (block.collide(ball)) {
+                block.kill()
+                ball.rebound()
+            }
         }
     }
 
     game.draw = function() {
         game.drawImage(paddle)
         game.drawImage(ball)
+        for (var i = 0; i < blocks.length; i++) {
+            var block = blocks[i]
+            if (block.alive) {
+                game.drawImage(block)
+            }
+        }
     }
 
 }
