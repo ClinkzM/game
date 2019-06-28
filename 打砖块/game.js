@@ -189,8 +189,8 @@ var __main = function() {
     // game.registerAction('p', function() {
     //     paused = !paused
     // })
-    window.addEventListener('keydown', function() {
-        if (event.key = 'p') {
+    window.addEventListener('keydown', function(event) {
+        if (event.key == 'p') {
             paused = !paused
         }
     })
