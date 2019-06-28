@@ -155,7 +155,7 @@ var Guagame = function() {
         g.context.clearRect(0, 0, g.canvas.width, g.canvas.height)
         // draw
         g.draw()
-    }, 1000/30)
+    }, 1000/15)
 
     return g
 }
@@ -174,8 +174,7 @@ var __main = function() {
         blocks.push(b)
     }
 
-    var leftDown = false
-    var rightDown = false
+    var paused = false
 
     // events
     game.registerAction('a', function() {
@@ -187,8 +186,19 @@ var __main = function() {
     game.registerAction('f', function() {
         ball.fire()
     })
+    // game.registerAction('p', function() {
+    //     paused = !paused
+    // })
+    window.addEventListener('keydown', function() {
+        if (event.key = 'p') {
+            paused = !paused
+        }
+    })
 
     game.update = function() {
+        if (paused) {
+            return
+        }
         ball.move()
         // 判断球和挡板相撞
         if (paddle.collide(ball)) {
