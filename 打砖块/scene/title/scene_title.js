@@ -1,21 +1,20 @@
-var SceneTitle = function(game) {
-    var s = {
-        game: game,
+class SceneTitle extends GuaScene {
+    constructor(game) {
+        super(game)
+        game.registerAction('k', function() {
+            var main = Scene(game)
+            game.replaceScene(main)
+        })
     }
 
-    game.registerAction('k', function() {
-        var main = Scene(game)
-        game.replaceScene(main)
-    })
+    static new(game) {
+        var i = new this(game)
+    }
 
-    s.draw = function() {
+    draw() {
         // draw labels
-        game.context.fillStyle = 'black'
-        game.context.fillText('按 k 开始游戏', 100, 100)
-    }
-    s.update = function() {
-
+        this.game.context.fillStyle = 'black'
+        this.game.context.fillText('按 k 开始游戏', 100, 100)
     }
 
-    return s
 }
