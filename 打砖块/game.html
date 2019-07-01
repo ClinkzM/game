@@ -8,11 +8,23 @@
                 border: 1px solid black;
             }
         </style>
-        <script src="utils.js" charset="utf-8"></script>
-        <script src="guagame.js" charset="utf-8"></script>
-        <script src="paddle.js" charset="utf-8"></script>
-        <script src="ball.js" charset="utf-8"></script>
-        <script src="block.js" charset="utf-8"></script>
+
+        <!-- gua game 相关文件 -->
+        <script src="guagame/utils.js" charset="utf-8"></script>
+        <script src="guagame/gua_game.js" charset="utf-8"></script>
+        <script src="guagame/gua_scene.js" charset="utf-8"></script>
+
+        <!-- 场景文件 -->
+        <script src="scene/main/paddle.js" charset="utf-8"></script>
+        <script src="scene/main/ball.js" charset="utf-8"></script>
+        <script src="scene/main/block.js" charset="utf-8"></script>
+        <script src="scene/main/scene.js" charset="utf-8"></script>
+
+        <!-- 结束和标题场景 -->
+        <script src="scene/end/scene_end.js" charset="utf-8"></script>
+        <script src="scene/title/scene_title.js" charset="utf-8"></script>
+
+        <!-- 关卡数据 -->
         <script src="level.js" charset="utf-8"></script>
     </head>
     <body>
@@ -24,6 +36,6 @@
                 <textarea id="id-text-log" rows="20" cols="50"></textarea>
             </div> -->
         </div>
-        <script src="game.js" charset="utf-8"></script>
+        <script src="main.js" charset="utf-8"></script>
     </body>
 </html>

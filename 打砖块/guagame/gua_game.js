@@ -3,6 +3,7 @@ var GuaGame = function(fps, images, runCallback) {
     // 程序会在所有图片载入成功后才运行
 
     var g = {
+        scene: null,
         actions: {},
         keydowns: {},
         images: {},
@@ -15,7 +16,14 @@ var GuaGame = function(fps, images, runCallback) {
     g.drawImage = function(guaImage) {
         g.context.drawImage(guaImage.image, guaImage.x, guaImage.y)
     }
-
+    // update
+    g.update = function() {
+        g.scene.update()
+    }
+    // draw
+    g.draw = function() {
+        g.scene.draw()
+    }
     // events
     window.addEventListener('keydown', function(event) {
         g.keydowns[event.key] = true
@@ -67,7 +75,7 @@ var GuaGame = function(fps, images, runCallback) {
             // log('g.images', g.images)
             // log('123123', loads, names)
             if (loads.length == names.length) {
-                g.run()
+                g.__start()
             }
         }
     }
@@ -82,12 +90,20 @@ var GuaGame = function(fps, images, runCallback) {
         return image
     }
 
-    g.run = function() {
-        runCallback(g)
+    g.runWithScene = function(scene) {
+        g.scene = scene
         // 开始运行程序
         setTimeout(function() {
             runloop()
         }, 1000/window.fps)
+    }
+
+    g.replaceScene = function(scene) {
+        g.scene = scene
+    }
+
+    g.__start = function() {
+        runCallback(g)
     }
 
 
