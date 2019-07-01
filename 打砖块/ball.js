@@ -40,7 +40,10 @@ var Ball = function(game) {
         o.speedY = -o.speedY
         // o.speedX = -o.speedX
     }
-
-    // 直播 - 1 24:23, 待办：做一个判断，挡板不能超过 canvas 边界
+    o.hasPoint = function(x, y) {
+        var xIn = x >= o.x && x <= o.x + o.w
+        var yIn = y >= o.y && y <= o.y + o.h
+        return xIn && yIn
+    }
     return o
 }

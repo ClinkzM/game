@@ -80,7 +80,37 @@ var __main = function() {
             }
         }
 
+        // mouse event
+        var enableDrag = false
+        game.canvas.addEventListener('mousedown', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            log('ball', ball)
+            if (ball.hasPoint(x, y)) {
+                // 设置拖拽状态
+                enableDrag = true
+            }
+        })
+        game.canvas.addEventListener('mousemove', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            if (enableDrag) {
+                ball.x = x
+                ball.y = y
+            }
+        })
+        game.canvas.addEventListener('mouseup', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            enableDrag = false
+        })
+        // 38:25
+
         game.draw = function() {
+            // draw 背景
+            game.context.fillStyle = '#554'
+            game.context.fillRect(0, 0, 400, 300)
+            //
             game.drawImage(paddle)
             game.drawImage(ball)
             for (var i = 0; i < blocks.length; i++) {
@@ -90,13 +120,12 @@ var __main = function() {
                 }
             }
             // draw labels
+            game.context.fillStyle = 'white'
             game.context.fillText('分数：' + score, 10, 280)
         }
     })
 
     enableDebugMode(game, true)
-
-
 
 }
 
