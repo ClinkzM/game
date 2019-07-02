@@ -9,6 +9,7 @@ class SceneTitle extends GuaScene {
 
     static new(game) {
         var i = new this(game)
+        return i
     }
 
     draw() {

@@ -4,7 +4,7 @@ var SceneEnd = function(game) {
     }
 
     game.registerAction('r', function() {
-        var title = new SceneTitle(game)
+        var title = SceneTitle.new(game)
         game.replaceScene(title)
     })
 

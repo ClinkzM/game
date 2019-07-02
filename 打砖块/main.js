@@ -42,7 +42,7 @@ var __main = function() {
     var fps = 30
 
     var game = GuaGame(fps, images, function(g) {
-        var s = new SceneTitle(g)
+        var s = SceneTitle.new(g)
         g.runWithScene(s)
     })
 
