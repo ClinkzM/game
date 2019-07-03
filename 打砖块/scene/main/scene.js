@@ -20,6 +20,9 @@ class Scene extends GuaScene {
         game.registerAction('f', function() {
             self.ball.fire()
         })
+        game.registerAction('b', function() {
+            self.save()
+        })
 
         // mouse event
         // self.enableDrag = false
@@ -103,5 +106,9 @@ class Scene extends GuaScene {
                 this.score = score + 100
             }
         }
+    }
+
+    save() {
+        log('blocks')
     }
 }
