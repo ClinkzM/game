@@ -6,6 +6,8 @@ class Scene extends GuaScene {
     setup() {
         var game = this.game
         this.bg = GuaImage.new(game, 'sky')
+        this.cloud = GuaImage.new(game, 'cloud')
+
         this.player = GuaImage.new(game, 'player')
         this.player.x = 100
         this.player.y = 150
@@ -18,14 +20,13 @@ class Scene extends GuaScene {
         // this.game.registerAction('f', function(){
         //     ball.fire()
         // })
-        this.elements = []
-        this.elements.push(this.bg)
-        this.elements.push(this.player)
+        this.addElement(this.bg)
+        this.addElement(this.player)
+        this.addElement(this.cloud)
     }
-    // draw() {
-    //     // this.game.drawImage(this.bg)
-    //     // this.game.drawImage(this.player)
-    // }
+    update() {
+        this.cloud.y = this.cloud.y + 1
+    }
 }
 
 
