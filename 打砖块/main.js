@@ -15,22 +15,23 @@ var enableDebugMode = function(game, enable) {
         return
     }
     window.paused = false
+    var blocks = []
     window.addEventListener('keydown', function(event) {
         var k = event.key
         if (k == 'p') {
             window.paused = !window.paused
         } else if ('123456789'.includes(k)) {
             blocks = loadLevel(game, Number(k))
+            log('blocks~', blocks)
         }
     })
     // 控制速度
     e('#id-input-speed').addEventListener('input', function(event) {
         var input = event.target
-        // log(event, input.value)
         window.fps = Number(input.value)
     })
 }
-var blocks = []
+
 var __main = function() {
 
     var images = {
@@ -41,7 +42,7 @@ var __main = function() {
 
     var fps = 30
 
-    var game = GuaGame(fps, images, function(g) {
+    var game = GuaGame.instance(fps, images, function(g) {
         var s = SceneTitle.new(g)
         g.runWithScene(s)
     })

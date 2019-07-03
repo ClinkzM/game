@@ -1,24 +1,3 @@
-// var SceneEnd = function(game) {
-//     var s = {
-//         game: game,
-//     }
-//
-//     game.registerAction('r', function() {
-//         var title = SceneTitle.new(game)
-//         game.replaceScene(title)
-//     })
-//
-//     s.draw = function() {
-//         // draw labels
-//
-//     }
-//     s.update = function() {
-//
-//     }
-//
-//     return s
-// }
-
 class SceneEnd extends GuaScene {
     constructor(game) {
         super(game)
