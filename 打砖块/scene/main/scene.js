@@ -23,7 +23,7 @@ class Scene extends GuaScene {
 
         // mouse event
         // self.enableDrag = false
-        game.canvas.addEventListener('mousedown', function(event) {
+        bindEvent(game.canvas, 'mousedown', function(event) {
             var x = event.offsetX
             var y = event.offsetY
             if (self.ball.hasPoint(x, y)) {
@@ -31,7 +31,7 @@ class Scene extends GuaScene {
                 self.enableDrag = true
             }
         })
-        game.canvas.addEventListener('mousemove', function(event) {
+        bindEvent(game.canvas, 'mousemove', function(event) {
             var x = event.offsetX
             var y = event.offsetY
             if (self.enableDrag) {
@@ -39,7 +39,7 @@ class Scene extends GuaScene {
                 self.ball.y = y
             }
         })
-        game.canvas.addEventListener('mouseup', function(event) {
+        bindEvent(game.canvas, 'mouseup', function(event) {
             var x = event.offsetX
             var y = event.offsetY
             self.enableDrag = false

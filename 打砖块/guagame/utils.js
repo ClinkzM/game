@@ -13,8 +13,8 @@ var imageFromPath = function(path) {
     return img
 }
 
-var imageByName = function(name) {
-
+var bindEvent = function(element, eventName, callback) {
+    element.addEventListener(eventName, callback)
 }
 
 var rectIntersects = function(a, b) {
