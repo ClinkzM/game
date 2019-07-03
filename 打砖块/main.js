@@ -15,18 +15,28 @@ var enableDebugMode = function(game, enable) {
         return
     }
     window.paused = false
-    var blocks = []
-    window.addEventListener('keydown', function(event) {
+    // var blocks = []
+    // window.addEventListener('keydown', function(event) {
+    //     var k = event.key
+    //     if (k == 'p') {
+    //         window.paused = !window.paused
+    //     } else if ('123456789'.includes(k)) {
+    //         blocks = loadLevel(game, Number(k))
+    //         log('blocks~', blocks)
+    //     }
+    // })
+    bindEvent(window, 'keydown', function(evnet) {
         var k = event.key
         if (k == 'p') {
             window.paused = !window.paused
         } else if ('123456789'.includes(k)) {
-            blocks = loadLevel(game, Number(k))
-            log('blocks~', blocks)
+            window.blocks = loadLevel(game, Number(k))
+            log('window.blocks~', window.blocks)
         }
     })
     // 控制速度
-    e('#id-input-speed').addEventListener('input', function(event) {
+    var speed = e('#id-input-speed')
+    bindEvent(speed, 'input', function(event) {
         var input = event.target
         window.fps = Number(input.value)
     })

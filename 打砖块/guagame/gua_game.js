@@ -3,7 +3,7 @@ class GuaGame {
         window.fps = fps
         this.images = images
         this.runCallback = runCallback
-        //
+
         this.scene = null
         this.actions = {}
         this.keydowns = {}
@@ -11,12 +11,11 @@ class GuaGame {
         this.context = this.canvas.getContext('2d')
         this.init()
 
-        // events
         var self = this
-        window.addEventListener('keydown', function(event) {
+        bindEvent(window, 'keydown', function(event) {
             self.keydowns[event.key] = true
         })
-        window.addEventListener('keyup', function(event) {
+        bindEvent(window, 'keyup', function(event) {
             self.keydowns[event.key] = false
         })
     }

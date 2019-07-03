@@ -80,6 +80,10 @@ class Scene extends GuaScene {
             return
         }
 
+        if (window.blocks) {
+            this.blocks = window.blocks
+        }
+
         ball.move()
         if (ball.y > paddle.y) {
             // 跳转到游戏结束的场景
