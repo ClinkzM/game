@@ -2,7 +2,7 @@ class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)
         game.registerAction('k', function() {
-            var main = Scene(game)
+            var main = Scene.new(game)
             game.replaceScene(main)
         })
     }
