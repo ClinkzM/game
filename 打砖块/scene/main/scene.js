@@ -7,6 +7,7 @@ class Scene extends GuaScene {
         this.score = 0
         this.blocks = loadLevel(game, 1)
         this.enableDrag = false
+        this.editable = false
 
         var self = this
 
@@ -20,9 +21,14 @@ class Scene extends GuaScene {
         game.registerAction('f', function() {
             self.ball.fire()
         })
-        game.registerAction('b', function() {
-            self.save()
-        })
+        // game.registerAction('e', function() {
+        //     self.editable = true
+        //     log('game.canvas.width', game.canvas.width)
+        //     game.canvas.width = 600
+        // })
+        // game.registerAction('s', function() {
+        //     self.editable = false
+        // })
 
         // mouse event
         // self.enableDrag = false
@@ -32,6 +38,9 @@ class Scene extends GuaScene {
             if (self.ball.hasPoint(x, y)) {
                 // 设置拖拽状态
                 self.enableDrag = true
+            }
+            if (self.editable) {
+                log('可以编辑', x, y)
             }
         })
         bindEvent(game.canvas, 'mousemove', function(event) {
@@ -70,6 +79,8 @@ class Scene extends GuaScene {
         // draw labels
         game.context.fillStyle = 'white'
         game.context.fillText('分数：' + score, 10, 280)
+        game.context.fillText('按 e 编辑砖块', 200, 280)
+        game.context.fillText('按 s 保存砖块', 280, 280)
     }
 
     update() {
