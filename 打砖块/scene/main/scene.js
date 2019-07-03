@@ -21,6 +21,7 @@ var Scene = function(game) {
         ball.fire()
     })
 
+
     s.draw = function() {
         // draw 背景
         game.context.fillStyle = '#554'
@@ -46,7 +47,7 @@ var Scene = function(game) {
         ball.move()
         if (ball.y > paddle.y) {
             // 跳转到游戏结束的场景
-            var end = SceneEnd(game)
+            var end = SceneEnd.new(game)
             game.replaceScene(end)
         }
         // 判断球和挡板相撞

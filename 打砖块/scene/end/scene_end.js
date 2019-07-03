@@ -1,21 +1,45 @@
-var SceneEnd = function(game) {
-    var s = {
-        game: game,
+// var SceneEnd = function(game) {
+//     var s = {
+//         game: game,
+//     }
+//
+//     game.registerAction('r', function() {
+//         var title = SceneTitle.new(game)
+//         game.replaceScene(title)
+//     })
+//
+//     s.draw = function() {
+//         // draw labels
+//
+//     }
+//     s.update = function() {
+//
+//     }
+//
+//     return s
+// }
+
+class SceneEnd extends GuaScene {
+    constructor(game) {
+        super(game)
+        this.init(game)
+    }
+    init(game) {
+        game.registerAction('r', function() {
+            var title = SceneTitle.new(game)
+            game.replaceScene(title)
+        })
     }
 
-    game.registerAction('r', function() {
-        var title = SceneTitle.new(game)
-        game.replaceScene(title)
-    })
+    static new(game) {
+        var i = new this(game)
+        return i
+    }
 
-    s.draw = function() {
+    draw() {
         // draw labels
-        game.context.fillStyle = 'red'
-        game.context.fillText('游戏结束，按 r 返回标题界面', 100, 280)
-    }
-    s.update = function() {
-
+        this.game.context.fillStyle = 'red'
+        this.game.context.fillText('按 r 开始游戏', 100, 200)
     }
 
-    return s
 }

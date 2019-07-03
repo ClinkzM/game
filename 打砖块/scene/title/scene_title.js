@@ -7,11 +7,6 @@ class SceneTitle extends GuaScene {
         })
     }
 
-    static new(game) {
-        var i = new this(game)
-        return i
-    }
-
     draw() {
         // draw labels
         this.game.context.fillStyle = 'black'
