@@ -21,14 +21,14 @@ class Scene extends GuaScene {
         game.registerAction('f', function() {
             self.ball.fire()
         })
-        // game.registerAction('e', function() {
-        //     self.editable = true
-        //     log('game.canvas.width', game.canvas.width)
-        //     game.canvas.width = 600
-        // })
-        // game.registerAction('s', function() {
-        //     self.editable = false
-        // })
+        game.registerAction('e', function() {
+            self.editable = true
+            log('game.canvas.width', game.canvas.width)
+            // game.canvas.width = 600
+        })
+        game.registerAction('s', function() {
+            self.editable = false
+        })
 
         // mouse event
         // self.enableDrag = false
