@@ -1,6 +1,7 @@
 class GuaScene {
     constructor(game) {
         this.game = game
+        this.debugModeEnabled = true
         this.elements = []
     }
     static new(game) {
