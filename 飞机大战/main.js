@@ -22,8 +22,10 @@ var __main = function() {
     var images = {
         bullet: 'img/bullet.png',
         cloud0: 'img/cloud0.png',
+        cloud1: 'img/cloud1.png',
+        cloud2: 'img/cloud2.png',
         player: 'img/player.png',
-        sky: 'img/sky.png',
+        bg: 'img/background.png',
         enemy0: 'img/enemy0.png',
         enemy1: 'img/enemy1.png',
         enemy2: 'img/enemy2.png',

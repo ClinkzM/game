@@ -8,6 +8,7 @@ class GuaScene {
         return i
     }
     addElement(img) {
+        img.scene = this
         this.elements.push(img)
     }
 
