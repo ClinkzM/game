@@ -21,7 +21,7 @@ var enableDebugMode = function(game, enable) {
 var __main = function() {
     var images = {
         bullet: 'img/bullet.png',
-        cloud: 'img/cloud.png',
+        cloud0: 'img/cloud0.png',
         player: 'img/player.png',
         sky: 'img/sky.png',
         enemy0: 'img/enemy0.png',
