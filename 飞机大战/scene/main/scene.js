@@ -1,16 +1,69 @@
+class Player extends GuaImage {
+    constructor(game) {
+        super(game, 'player')
+        this.setup()
+    }
+    setup() {
+        this.speed = 10
+    }
+    update() {
+
+    }
+    moveLeft() {
+        this.x = this.x - this.speed
+    }
+    moveRight() {
+        this.x = this.x + this.speed
+    }
+    moveUp() {
+        this.y = this.y - this.speed
+    }
+    moveDown() {
+        this.y = this.y + this.speed
+    }
+}
+
+const randomBetween = function(start, end) {
+    var n = Math.random() * (end - start + 1)
+    return Math.floor(n + start)
+}
+
+class Enemy extends GuaImage {
+    constructor(game) {
+        var type = randomBetween(0, 2)
+        var name = `enemy${type}`
+        super(game, name)
+        this.setup()
+    }
+    setup() {
+        this.speed = randomBetween(2, 5)
+        this.x = randomBetween(0, 350)
+        this.y = -randomBetween(0, 200)
+    }
+    update() {
+        this.y = this.y + this.speed
+        if (this.y > 600) {
+            this.setup()
+        }
+    }
+}
+
+
 class Scene extends GuaScene {
     constructor(game) {
         super(game)
         this.setup()
+        this.setupInputs()
     }
     setup() {
         var game = this.game
+        this.numberOfEnemies = 10
         this.bg = GuaImage.new(game, 'sky')
         this.cloud = GuaImage.new(game, 'cloud')
 
-        this.player = GuaImage.new(game, 'player')
-        this.player.x = 100
-        this.player.y = 150
+        // this.player = GuaImage.new(game, 'player')
+        // this.player.x = 100
+        // this.player.y = 150
         // this.game.registerAction('a', function(){
         //     this.pla.moveLeft()
         // })
@@ -20,11 +73,46 @@ class Scene extends GuaScene {
         // this.game.registerAction('f', function(){
         //     ball.fire()
         // })
+        this.player = Player.new(game)
+        this.player.x = 100
+        this.player.y = 450
+
         this.addElement(this.bg)
-        this.addElement(this.player)
         this.addElement(this.cloud)
+        this.addElement(this.player)
+
+        this.addEnemies()
     }
+
+    addEnemies() {
+        var es = []
+        for (var i = 0; i < this.numberOfEnemies; i++) {
+            var e = Enemy.new(this.game)
+            es.push(e)
+            this.addElement(e)
+        }
+        this.enemies = es
+    }
+
+    setupInputs() {
+        var g = this.game
+        var s = this
+        g.registerAction('a', function() {
+            s.player.moveLeft()
+        })
+        g.registerAction('d', function() {
+            s.player.moveRight()
+        })
+        g.registerAction('w', function() {
+            s.player.moveUp()
+        })
+        g.registerAction('s', function() {
+            s.player.moveDown()
+        })
+    }
+
     update() {
+        super.update()
         this.cloud.y = this.cloud.y + 1
     }
 }
