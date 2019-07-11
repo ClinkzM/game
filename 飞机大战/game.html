@@ -15,15 +15,16 @@
         <script src='guagame/gua_scene.js'></script>
         <script src='guagame/gua_image.js'></script>
         <!-- 场景文件 -->
-        <script src='scene/main/paddle.js'></script>
-        <script src='scene/main/ball.js'></script>
-        <script src='scene/main/block.js'></script>
+        <script src='scene/main/bullet.js'></script>
+        <script src='scene/main/cloud.js'></script>
+        <script src='scene/main/enemy.js'></script>
+        <script src='scene/main/player.js'></script>
         <script src='scene/main/scene.js'></script>
         <!-- 结束和标题场景 -->
         <script src='scene/end/scene_end.js'></script>
         <script src='scene/title/scene_title.js'></script>
-        <!-- 关卡数据 -->
-        <!-- <script src='level.js'></script> -->
+        <!-- 配置数据 -->
+        <script src='config.js'></script>
     </head>
     <body>
         <canvas id="id-canvas" width="400" height="600"></canvas>
@@ -71,15 +72,5 @@
             </label>
         </div>
         <script src=main.js></script>
-        <script>
-            bindAll('.gua-auto-slider', 'input', function(event) {
-                var target = event.target
-                var bindVal = target.dataset.value
-                var v = target.value
-                eval(bindVal + '=' + v)
-                var label = target.closest('label').querySelector('.gua-label')
-                label.innerText = v
-            })
-        </script>
     </body>
 </html>

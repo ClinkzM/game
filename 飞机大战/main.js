@@ -37,6 +37,15 @@ var __main = function() {
     })
 
     enableDebugMode(game, true)
+
+    bindAll('.gua-auto-slider', 'input', function(event) {
+        var target = event.target
+        var bindVal = target.dataset.value
+        var v = target.value
+        eval(bindVal + '=' + v)
+        var label = target.closest('label').querySelector('.gua-label')
+        label.innerText = v
+    })
 }
 
 __main()
