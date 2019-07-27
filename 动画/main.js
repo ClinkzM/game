@@ -29,6 +29,21 @@ var __main = function() {
         enemy0: 'img/enemy0.png',
         enemy1: 'img/enemy1.png',
         enemy2: 'img/enemy2.png',
+        // 走路动画
+        r0: 'img/run/r0.png',
+        r1: 'img/run/r1.png',
+        r2: 'img/run/r2.png',
+        r3: 'img/run/r3.png',
+        r4: 'img/run/r4.png',
+        r5: 'img/run/r5.png',
+        r6: 'img/run/r6.png',
+        r7: 'img/run/r7.png',
+        r8: 'img/run/r8.png',
+        r9: 'img/run/r9.png',
+        r10: 'img/run/r10.png',
+        r11: 'img/run/r11.png',
+
+
     }
     var game = GuaGame.instance(30, images, function(g){
         // var s = SceneTitle.new(g)
