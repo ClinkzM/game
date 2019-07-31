@@ -59,19 +59,15 @@ class GuaAnimation {
 
     draw() {
         var context = this.game.context
-        if (this.flipX) {
-            context.save()
+        context.save()
 
-            var x = this.x + this.w / 2
-            context.translate(x, 0)
-            context.scale(-1, 1)
-            context.translate(-x, 0)
-            context.drawImage(this.texture, this.x, this.y)
+        var x = this.x + this.w / 2
+        context.translate(x, 0)
+        context.scale(-1, 1)
+        context.translate(-x, 0)
+        context.drawImage(this.texture, this.x, this.y)
 
-            context.restore()
-        } else {
-            context.drawImage(this.texture, this.x, this.y)
-        }
+        context.restore()
     }
 
     move(x, keyStatus) {
