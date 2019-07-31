@@ -22,6 +22,8 @@ class GuaAnimation {
         this.flipX = false
 
         // 重力和加速度
+        this.gy = 10
+        this.vy = 0
 
     }
     static new(game) {
@@ -31,7 +33,22 @@ class GuaAnimation {
     frames() {
         return this.animations[this.animationName]
     }
+    jump() {
+        this.vy = -10
+        // var top = 5
+        // if (this.y < top && (this.y + this.vy) < top) {
+        //     this.y = top
+        // }
+    }
     update() {
+        // 更新受力
+        this.y = this.y + this.vy
+        this.vy = this.vy + this.gy * 0.2
+        var h = 517
+        if (this.y > h) {
+            this.y = h
+        }
+
         this.frameCount = this.frameCount - 1
         if (this.frameCount == 0) {
             this.frameCount = 3
