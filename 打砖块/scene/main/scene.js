@@ -21,6 +21,10 @@ class Scene extends GuaScene {
         game.registerAction('f', function() {
             self.ball.fire()
         })
+        game.registerAction('e', function() {
+        })
+        game.registerAction('s', function() {
+        })
 
         // mouse event
         // self.enableDrag = false
@@ -73,8 +77,8 @@ class Scene extends GuaScene {
         game.context.fillText('按 a 或 d 左右移动挡板', 175, 280)
         game.context.fillText('按 p 暂停游戏', 300, 280)
         game.context.fillText('按数字选择关卡', 100, 295)
-        game.context.fillText('按 e 编辑砖块', 175, 295)
-        game.context.fillText('按 s 保存砖块', 300, 295)
+        // game.context.fillText('按 e 编辑砖块', 175, 295)
+        // game.context.fillText('按 s 保存砖块', 300, 295)
     }
 
     update() {
