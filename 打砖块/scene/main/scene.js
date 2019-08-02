@@ -21,30 +21,16 @@ class Scene extends GuaScene {
         game.registerAction('f', function() {
             self.ball.fire()
         })
-        game.registerAction('e', function() {
-            self.editable = true
-            log('开始编辑关卡 game.canvas.width', game.canvas.width)
-            // game.canvas.width = 600
-        })
-        game.registerAction('s', function() {
-            self.editable = false
-            // log('levels', levels)
-            // var d = JSON.stringify(levels)
-            // window.localStorage['levels'] = d
-            // log('window.localStorage', window.localStorage)
-        })
 
         // mouse event
         // self.enableDrag = false
         bindEvent(game.canvas, 'mousedown', function(event) {
             var x = event.offsetX
             var y = event.offsetY
+            // 检查是否点中了 ball
             if (self.ball.hasPoint(x, y)) {
                 // 设置拖拽状态
                 self.enableDrag = true
-            }
-            if (self.editable) {
-                log('可以编辑', x, y)
             }
         })
         bindEvent(game.canvas, 'mousemove', function(event) {

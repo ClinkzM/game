@@ -5,6 +5,10 @@ class SceneTitle extends GuaScene {
             var main = Scene.new(game)
             game.replaceScene(main)
         })
+        game.registerAction('e', function() {
+            var editor = SceneEditor.new(game)
+            game.replaceScene(editor)
+        })
     }
 
     draw() {
@@ -12,9 +16,9 @@ class SceneTitle extends GuaScene {
         // draw labels
         game.context.fillStyle = 'black'
         game.context.fillText('按 k 开始游戏', 100, 100)
-        // game.context.fillText('按数字选择关卡', 200, 100)
-        // game.context.fillText('按 e 编辑砖块', 100, 200)
-        // game.context.fillText('按 s 保存砖块', 200, 200)
+        game.context.fillText('按 e 编辑砖块，如果不编辑则载入默认关卡数据', 100, 150)
+        // game.context.fillText('点击屏幕设置砖块', 100, 250)
+        // game.context.fillText('按 s 保存并设置下一关，', 300, 250)
     }
 
 }
