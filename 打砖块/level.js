@@ -1,4 +1,4 @@
-var levels = [
+var defaultLevels = [
     // 第一关
     [
         [0, 0]

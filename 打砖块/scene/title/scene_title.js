@@ -8,9 +8,13 @@ class SceneTitle extends GuaScene {
     }
 
     draw() {
+        var game = this.game
         // draw labels
-        this.game.context.fillStyle = 'black'
-        this.game.context.fillText('按 k 开始游戏', 100, 100)
+        game.context.fillStyle = 'black'
+        game.context.fillText('按 k 开始游戏', 100, 100)
+        // game.context.fillText('按数字选择关卡', 200, 100)
+        // game.context.fillText('按 e 编辑砖块', 100, 200)
+        // game.context.fillText('按 s 保存砖块', 200, 200)
     }
 
 }

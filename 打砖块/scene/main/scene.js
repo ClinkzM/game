@@ -23,11 +23,15 @@ class Scene extends GuaScene {
         })
         game.registerAction('e', function() {
             self.editable = true
-            log('game.canvas.width', game.canvas.width)
+            log('开始编辑关卡 game.canvas.width', game.canvas.width)
             // game.canvas.width = 600
         })
         game.registerAction('s', function() {
             self.editable = false
+            // log('levels', levels)
+            // var d = JSON.stringify(levels)
+            // window.localStorage['levels'] = d
+            // log('window.localStorage', window.localStorage)
         })
 
         // mouse event
@@ -79,8 +83,12 @@ class Scene extends GuaScene {
         // draw labels
         game.context.fillStyle = 'white'
         game.context.fillText('分数：' + score, 10, 280)
-        game.context.fillText('按 e 编辑砖块', 200, 280)
-        game.context.fillText('按 s 保存砖块', 280, 280)
+        game.context.fillText('按 f 发球', 100, 280)
+        game.context.fillText('按 a 或 d 左右移动挡板', 175, 280)
+        game.context.fillText('按 p 暂停游戏', 300, 280)
+        game.context.fillText('按数字选择关卡', 100, 295)
+        game.context.fillText('按 e 编辑砖块', 175, 295)
+        game.context.fillText('按 s 保存砖块', 300, 295)
     }
 
     update() {
