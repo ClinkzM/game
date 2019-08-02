@@ -21,10 +21,10 @@ class Scene extends GuaScene {
         game.registerAction('f', function() {
             self.ball.fire()
         })
-        game.registerAction('e', function() {
-        })
-        game.registerAction('s', function() {
-        })
+        // game.registerAction('e', function() {
+        // })
+        // game.registerAction('s', function() {
+        // })
 
         // mouse event
         // self.enableDrag = false
