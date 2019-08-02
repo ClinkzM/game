@@ -18,59 +18,48 @@ var enableDebugMode = function(game, enable) {
     })
 }
 
+var templateControl = function(key, item) {
+    var t = `
+        <div class="">
+            <label>
+                <input class="gua-auto-slider" type="range" value="${item.value}"
+                max="300"
+                data-value="config.${key}"
+                >
+                ${item._comment}：
+                <span class="gua-label"></span>
+            </label>
+        </div>
+    `
+    return t
+}
+
+var insertControls = function() {
+    var div = e('.gua-controls')
+    var keys = Object.keys(config)
+    for (var k of keys) {
+        var item = config[k]
+        var html = templateControl(k, item)
+        div.insertAdjacentHTML('beforeend', html)
+    }
+}
+
+var bindEvents = function() {
+    bindAll('.gua-auto-slider', 'input', function(event) {
+        var target = event.target
+        var bindVal = target.dataset.value
+        var v = target.value
+        eval(bindVal + '.value=' + v)
+        var label = target.closest('label').querySelector('.gua-label')
+        label.innerText = v
+    })
+}
+
 var __main = function() {
     var images = {
-        bullet: 'img/bullet.png',
-        cloud0: 'img/cloud0.png',
-        cloud1: 'img/cloud1.png',
-        cloud2: 'img/cloud2.png',
-        player: 'img/player.png',
-        bg: 'img/background.png',
-        enemy0: 'img/enemy0.png',
-        enemy1: 'img/enemy1.png',
-        enemy2: 'img/enemy2.png',
-
-
-        // 跑步动画
-        run0: 'img/run/run0.png',
-        run1: 'img/run/run1.png',
-        run2: 'img/run/run2.png',
-        run3: 'img/run/run3.png',
-        run4: 'img/run/run4.png',
-        run5: 'img/run/run5.png',
-        run6: 'img/run/run6.png',
-        run7: 'img/run/run7.png',
-        run8: 'img/run/run8.png',
-        run9: 'img/run/run9.png',
-        run10: 'img/run/run10.png',
-        run11: 'img/run/run11.png',
-
-        // 闲置动画（站立动画）
-        s0: 'img/stand/stand0.png',
-        s1: 'img/stand/stand1.png',
-        s2: 'img/stand/stand2.png',
-        s3: 'img/stand/stand3.png',
-        s4: 'img/stand/stand4.png',
-        s5: 'img/stand/stand5.png',
-        s6: 'img/stand/stand6.png',
-        s7: 'img/stand/stand7.png',
-        s8: 'img/stand/stand8.png',
-        s9: 'img/stand/stand9.png',
-        s10: 'img/stand/stand10.png',
-        s11: 'img/stand/stand11.png',
-        s12: 'img/stand/stand12.png',
-        s13: 'img/stand/stand13.png',
-        s14: 'img/stand/stand14.png',
-        s15: 'img/stand/stand15.png',
-        s16: 'img/stand/stand16.png',
-        s17: 'img/stand/stand17.png',
-        s18: 'img/stand/stand18.png',
-        s19: 'img/stand/stand19.png',
-        s20: 'img/stand/stand20.png',
-        s21: 'img/stand/stand21.png',
-
         // flappy bird images
         bg: 'img/bird/bg.png',
+        pipe: 'img/bird/pipe.png',
         ground: 'img/bird/ground.png',
         b1: 'img/bird/b1.png',
         b2: 'img/bird/b2.png',
@@ -84,14 +73,10 @@ var __main = function() {
 
     enableDebugMode(game, true)
 
-    bindAll('.gua-auto-slider', 'input', function(event) {
-        var target = event.target
-        var bindVal = target.dataset.value
-        var v = target.value
-        eval(bindVal + '=' + v)
-        var label = target.closest('label').querySelector('.gua-label')
-        label.innerText = v
-    })
+    // 从配置文件生成 HTML 控件
+    insertControls()
+    // 绑定事件
+    bindEvents()
 }
 
 __main()
