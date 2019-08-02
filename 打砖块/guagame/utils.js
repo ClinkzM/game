@@ -18,11 +18,14 @@ var bindEvent = function(element, eventName, callback) {
 }
 
 var rectIntersects = function(a, b) {
-    var o = a
-    if (b.y > o.y && b.y < o.y + o.image.height) {
-        if (b.x > o.x && b.x < o.x + o.image.width) {
+    if (b.y > a.y && b.y < a.y + a.texture.height) {
+        if (b.x > a.x && b.x < a.x + a.texture.width) {
             return true
         }
     }
     return false
+}
+
+var aInb = function(x, x1, x2) {
+    return x >= x1 && x <= x2
 }

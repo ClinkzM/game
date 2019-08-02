@@ -4,7 +4,7 @@ var loadLevel = function(game, n) {
     var blocks = []
     for (var i = 0; i < level.length; i++) {
         var p = level[i]
-        var b = Block(game, p)
+        var b = Block.new(game, p)
         blocks.push(b)
     }
     return blocks
@@ -53,7 +53,8 @@ var __main = function() {
     var fps = 30
 
     var game = GuaGame.instance(fps, images, function(g) {
-        var s = SceneTitle.new(g)
+        var s = Scene.new(g)
+        // var s = SceneTitle.new(g)
         g.runWithScene(s)
     })
 

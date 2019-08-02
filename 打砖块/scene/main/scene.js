@@ -2,8 +2,8 @@ class Scene extends GuaScene {
     constructor(game) {
         super(game)
 
-        this.paddle = Paddle(game)
-        this.ball = Ball(game)
+        this.paddle = Paddle.new(game)
+        this.ball = Ball.new(game)
         this.score = 0
         this.blocks = loadLevel(game, 1)
         this.enableDrag = false
@@ -101,8 +101,9 @@ class Scene extends GuaScene {
         ball.move()
         if (ball.y > paddle.y) {
             // 跳转到游戏结束的场景
-            var end = SceneEnd.new(game)
-            game.replaceScene(end)
+            log('游戏结束跳转暂时注释掉了，之后记得注释回来在 scene.js 的 104 行')
+            // var end = SceneEnd.new(game)
+            // game.replaceScene(end)
         }
         // 判断球和挡板相撞
         if (paddle.collide(ball)) {

@@ -26,7 +26,7 @@ class GuaGame {
     }
 
     drawImage(img) {
-        this.context.drawImage(img.image, img.x, img.y)
+        this.context.drawImage(img.texture, img.x, img.y)
     }
     // update
     update() {
@@ -95,6 +95,12 @@ class GuaGame {
             image: img,
         }
         return image
+    }
+    textureByName(name) {
+        var g = this
+        log('image by name', g.images)
+        var img = g.images[name]
+        return img
     }
 
     runWithScene(scene) {
