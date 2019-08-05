@@ -2,10 +2,14 @@ class Block extends GuaImage{
     constructor(game, position) {
         super(game, 'block')
         var p = position
-        this.x = p[0]
-        this.y = p[1]
+        // this.x = p[0]
+        // this.y = p[1]
+        // this.alive = true
+        // this.lifes = p[2] || 1
+        this.x = p['x']
+        this.y = p['y']
         this.alive = true
-        this.lifes = p[2] || 1
+        this.lifes = p['lifes'] || 1
     }
 
     kill() {
