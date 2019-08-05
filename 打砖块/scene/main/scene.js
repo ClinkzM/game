@@ -6,6 +6,7 @@ class Scene extends GuaScene {
         this.ball = Ball.new(game)
         this.score = 0
         this.blocks = loadLevel(game, 1)
+
         this.enableDrag = false
         this.editable = false
 

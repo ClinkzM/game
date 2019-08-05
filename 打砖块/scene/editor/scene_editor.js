@@ -8,69 +8,44 @@ class SceneEditor extends GuaScene {
         game.registerAction('s', function() {
             log('保存')
         })
-
-        bindEvent(game.canvas, 'mousedown', function(event) {
+        bindEvent(game.canvas, 'click', function(event) {
             var x = event.offsetX
             var y = event.offsetY
             log('可以编辑', x, y, event)
-
         })
-        this.blocks = []
-        this.baseX = 35
-        this.baseY = 19
-        this.l = []
-        for (var i = 0; i < 10; i++) {
 
-        }
-        log('this.levels', this.levels)
-
-        var level = [
-            [0, 0],
-            [35, 0],
-            [70, 0],
-            [105, 0],
-            [140, 0],
-            [175, 0],
-            [210, 0],
-            [245, 0],
-            [280, 0],
-            [315, 0],
-            [350, 0],
-            [0, 19],
-            [35, 19],
-            [70, 19],
-            [105, 19],
-            [140, 19],
-            [175, 19],
-            [210, 19],
-            [245, 19],
-            [280, 19],
-            [315, 19],
-            [350, 19],
-            [0, 38],
-            [35, 38],
-            [70, 38],
-            [105, 38],
-            [140, 38],
-            [175, 38],
-            [210, 38],
-            [245, 38],
-            [280, 38],
-            [315, 38],
-            [350, 38],
-        ]
-        for (var i = 0; i < level.length; i++) {
-            var p = level[i]
-            var b = Block.new(game, p)
-            this.blocks.push(b)
-        }
 
 
         // 40 x 19
         // 400 x 300
         // 369 x 209
 
-        // log(this.blocks)
+        // 画出所有砖块
+        this.baseX = 35
+        this.baseY = 19
+        this.allBlocks = []
+        this.columns = 11
+        this.rows = 10
+        for (var i = 0; i < this.rows; i++) {
+            for (var j = 0; j < this.columns; j++) {
+                // var p = []
+                // p[0] = j * this.baseX
+                // p[1] = i * this.baseY
+                var p = {}
+                p['x'] = j * this.baseX
+                p['y'] = i * this.baseY
+                this.allBlocks.push(p)
+            }
+        }
+        log('this.allBlocks', this.allBlocks)
+
+        this.blocks = []
+        for (var i = 0; i < this.allBlocks.length; i++) {
+            var p = this.allBlocks[i]
+            var b = Block.new(game, p)
+            this.blocks.push(b)
+        }
+
     }
 
     draw() {
@@ -103,7 +78,6 @@ class SceneEditor extends GuaScene {
     }
     update() {
         // log('1223')
-
     }
 
 }
