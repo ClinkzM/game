@@ -8,7 +8,6 @@ class Scene extends GuaScene {
         this.blocks = loadLevel(game, 1)
 
         this.enableDrag = false
-        this.editable = false
 
         var self = this
 
@@ -22,10 +21,6 @@ class Scene extends GuaScene {
         game.registerAction('f', function() {
             self.ball.fire()
         })
-        // game.registerAction('e', function() {
-        // })
-        // game.registerAction('s', function() {
-        // })
 
         // mouse event
         // self.enableDrag = false
@@ -117,9 +112,5 @@ class Scene extends GuaScene {
                 this.score = score + 100
             }
         }
-    }
-
-    save() {
-        log('blocks')
     }
 }

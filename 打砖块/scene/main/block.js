@@ -24,6 +24,13 @@ class Block extends GuaImage{
         var o = this
         return o.alive && (rectIntersects(o, b) || rectIntersects(b, o))
     }
+    // 用来判断点的位置在不在这个 block 里面
+    hasPoint(x, y) {
+        var o = this
+        var xIn = x >= o.x && x <= o.x + o.w
+        var yIn = y >= o.y && y <= o.y + o.h
+        return xIn && yIn
+    }
 }
 
 

@@ -1,3 +1,10 @@
+var locateBlock = function(block, width, height, x, y) {
+    var o = block
+    var xIn = x >= o.x && x <= o.x + width
+    var yIn = y >= o.y && y <= o.y + height
+    return xIn && yIn
+}
+
 class SceneEditor extends GuaScene {
     constructor(game) {
         super(game)
@@ -8,19 +15,8 @@ class SceneEditor extends GuaScene {
         game.registerAction('s', function() {
             log('保存')
         })
-        bindEvent(game.canvas, 'click', function(event) {
-            var x = event.offsetX
-            var y = event.offsetY
-            log('可以编辑', x, y, event)
-        })
 
-
-
-        // 40 x 19
-        // 400 x 300
-        // 369 x 209
-
-        // 画出所有砖块
+        // 所有砖块的 x, y 位置
         this.baseX = 35
         this.baseY = 19
         this.allBlocks = []
@@ -40,13 +36,37 @@ class SceneEditor extends GuaScene {
         log('this.allBlocks', this.allBlocks)
 
         this.blocks = []
+        // 画出所有砖块
         for (var i = 0; i < this.allBlocks.length; i++) {
             var p = this.allBlocks[i]
             var b = Block.new(game, p)
             this.blocks.push(b)
         }
 
+        // this.hasBlock = false
+        var self = this
+        bindEvent(game.canvas, 'click', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            // log('可以编辑', x, y, event)
+            // log('self', self)
+            for (var i = 0; i < self.allBlocks.length; i++) {
+                var b = self.allBlocks[i]
+                if (locateBlock(b, self.baseX, self.baseY, x, y)) {
+                    log('点到某个空白', b['x'], b['y'])
+                }
+            }
+            for (var i = 0; i < self.blocks.length; i++) {
+                var b = self.blocks[i]
+                if (b.hasPoint(x, y)) {
+                    log('点到某个砖', b['x'], b['y'])
+                    // self.hasBlock = true
+                }
+            }
+        })
     }
+
+
 
     draw() {
         var s = this
@@ -77,7 +97,5 @@ class SceneEditor extends GuaScene {
         }
     }
     update() {
-        // log('1223')
     }
-
 }
