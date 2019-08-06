@@ -74,11 +74,11 @@ class SceneEditor extends GuaScene {
                         var newBlock = Block.new(game, newPosition)
                         self.blocks.push(newBlock)
                     }
-                    for (var j = 0; j < self.blocks.length; i++) {
-                        var b = self.blocks[i]
-                        log('b', b)
+                    for (var j = 0; j < self.blocks.length; j++) {
+                        var b = self.blocks[j]
+                        // log('b', b)
                         if (b.hasPoint(x, y)) {
-                            log('点到某个砖',self.hasBlock, b['x'], b['y'])
+                            log('点到某个砖',self.blocks, b['x'], b['y'], b['lifes'])
                             self.hasBlock = true
                             b['lifes'] = b['lifes'] + 1
                         } else {
