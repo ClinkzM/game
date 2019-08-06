@@ -19,7 +19,7 @@ class SceneEditor extends GuaScene {
         // 所有砖块的 x, y 位置
         this.baseX = 35
         this.baseY = 19
-        this.allBlocks = []
+        this.positions = []
         this.columns = 11
         this.rows = 10
         for (var i = 0; i < this.rows; i++) {
@@ -30,71 +30,72 @@ class SceneEditor extends GuaScene {
                 var p = {}
                 p['x'] = j * this.baseX
                 p['y'] = i * this.baseY
-                this.allBlocks.push(p)
+                this.positions.push(p)
             }
         }
-        log('this.allBlocks', this.allBlocks)
+        log('this.positions', this.positions)
 
         this.blocks = []
-        // 画出所有砖块
-        // for (var i = 0; i < this.allBlocks.length; i++) {
-        //     var p = this.allBlocks[i]
+        // 画出所有位置所有砖块
+        // for (var i = 0; i < this.positions.length; i++) {
+        //     var p = this.positions[i]
         //     var b = Block.new(game, p)
         //     this.blocks.push(b)
         // }
-
         this.hasBlock = false
         var self = this
         bindEvent(self.game.canvas, 'click', function(event) {
             var x = event.offsetX
             var y = event.offsetY
-            // log('可以编辑', x, y, event)
-            // log('self', self)
-            for (var i = 0; i < self.allBlocks.length; i++) {
-                var b = self.allBlocks[i]
-                if (locateBlock(b, self.baseX, self.baseY, x, y)) {
-                    log('点到某个空白', b['x'], b['y'])
-                    var p = []
-                    p['x'] = b['x']
-                    p['y'] = b['y']
-                    var block = Block.new(self.game, p)
-                    self.blocks.push(block)
-                    if (self.blocks.length == 0) {
-                        log('length')
-                        p['lifes'] = 1
-                        var block = Block.new(self.game, p)
-                        self.blocks.push(block)
-                    }
-                    for (var j = 0; j < self.blocks.length; j++) {
-                        var existedBlock = self.blocks[j]
-                        log('existedBlock', existedBlock)
-                        if (existedBlock == undefined) {
-                            log('else')
-                            p['lifes'] = 1
-                            var block = Block.new(self.game, p)
-                            self.blocks.push(block)
-                        } else if (existedBlock.hasPoint(x, y)){
-                            log('jjjj点到某个砖', existedBlock['x'], existedBlock['y'])
-                            // self.hasBlock = true
-                            // self.blocks.splice(i, 1)
-                            existedBlock['lifes'] = 1 + i
-                            // var block = Block.new(self.game, p)
-                            // self.blocks.push(block)
-                        }
-                    }
-                    // var block = Block.new(self.game, p)
-                    // self.blocks.push(block)
-                }
-            }
+            // for (var i = 0; i < self.positions.length; i++) {
+            //     var b = self.positions[i]
+            //     if (locateBlock(b, self.baseX, self.baseY, x, y)) {
+            //         log('点到某个空白', b['x'], b['y'])
+            //         self.hasBlock = false
+            //     }
+            // }
             // for (var i = 0; i < self.blocks.length; i++) {
             //     var b = self.blocks[i]
             //     if (b.hasPoint(x, y)) {
             //         log('点到某个砖', b['x'], b['y'])
             //         self.hasBlock = true
-            //         // self.blocks.splice(i, 1)
             //     }
             // }
-            log('this.blocks', self.blocks)
+            for (var i = 0; i < self.positions.length; i++) {
+                var p = self.positions[i]
+                if (locateBlock(p, self.baseX, self.baseY, x, y)) {
+                    if (self.blocks.length == 0) {
+                        log('blocks 为零', self.hasBlock)
+                        self.hasBlock = false
+                        var newPosition = {}
+                        newPosition['x'] = p['x']
+                        newPosition['y'] = p['y']
+                        newPosition['lifes'] = 1
+                        var newBlock = Block.new(game, newPosition)
+                        self.blocks.push(newBlock)
+                    }
+                    for (var j = 0; j < self.blocks.length; i++) {
+                        var b = self.blocks[i]
+                        log('b', b)
+                        if (b.hasPoint(x, y)) {
+                            log('点到某个砖',self.hasBlock, b['x'], b['y'])
+                            self.hasBlock = true
+                            b['lifes'] = b['lifes'] + 1
+                        } else {
+                            log('点到的只是空白处', self.hasBlock)
+                            self.hasBlock = false
+                            var newPosition = {}
+                            newPosition['x'] = p['x']
+                            newPosition['y'] = p['y']
+                            newPosition['lifes'] = 1
+                            var newBlock = Block.new(game, newPosition)
+                            self.blocks.push(newBlock)
+                        }
+                    }
+                }
+            }
+
+            log('this.hasBlock', self.hasBlock)
         })
 
     }
@@ -126,7 +127,10 @@ class SceneEditor extends GuaScene {
         var blocks = this.blocks
         for (var i = 0; i < blocks.length; i++) {
             var block = blocks[i]
-            game.drawImage(block)
+            if (s.hasBlock == false) {
+                game.drawImage(block)
+            }
+
         }
     }
     update() {
