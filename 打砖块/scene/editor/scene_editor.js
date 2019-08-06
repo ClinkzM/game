@@ -8,19 +8,12 @@ var locateBlock = function(block, width, height, x, y) {
 class SceneEditor extends GuaScene {
     constructor(game) {
         super(game)
-        game.registerAction('k', function() {
-            var main = Scene.new(game)
-            game.replaceScene(main)
-        })
-        game.registerAction('s', function() {
-            log('保存')
-        })
 
         // 所有砖块的 x, y 位置
-        this.baseX = 35
+        this.baseX = 40
         this.baseY = 19
         this.positions = []
-        this.columns = 11
+        this.columns = 10
         this.rows = 10
         for (var i = 0; i < this.rows; i++) {
             for (var j = 0; j < this.columns; j++) {
@@ -33,71 +26,51 @@ class SceneEditor extends GuaScene {
                 this.positions.push(p)
             }
         }
-        log('this.positions', this.positions)
+        // log('this.positions', this.positions.length)
 
         this.blocks = []
-        // 画出所有位置所有砖块
+        // 画出所有砖块
         // for (var i = 0; i < this.positions.length; i++) {
         //     var p = this.positions[i]
         //     var b = Block.new(game, p)
         //     this.blocks.push(b)
         // }
-        this.hasBlock = false
+
         var self = this
         bindEvent(self.game.canvas, 'click', function(event) {
             var x = event.offsetX
             var y = event.offsetY
-            // for (var i = 0; i < self.positions.length; i++) {
-            //     var b = self.positions[i]
-            //     if (locateBlock(b, self.baseX, self.baseY, x, y)) {
-            //         log('点到某个空白', b['x'], b['y'])
-            //         self.hasBlock = false
-            //     }
-            // }
-            // for (var i = 0; i < self.blocks.length; i++) {
-            //     var b = self.blocks[i]
-            //     if (b.hasPoint(x, y)) {
-            //         log('点到某个砖', b['x'], b['y'])
-            //         self.hasBlock = true
-            //     }
-            // }
             for (var i = 0; i < self.positions.length; i++) {
-                var p = self.positions[i]
-                if (locateBlock(p, self.baseX, self.baseY, x, y)) {
-                    if (self.blocks.length == 0) {
-                        log('blocks 为零', self.hasBlock)
-                        self.hasBlock = false
-                        var newPosition = {}
-                        newPosition['x'] = p['x']
-                        newPosition['y'] = p['y']
-                        newPosition['lifes'] = 1
-                        var newBlock = Block.new(game, newPosition)
-                        self.blocks.push(newBlock)
-                    }
-                    for (var j = 0; j < self.blocks.length; j++) {
-                        var b = self.blocks[j]
-                        // log('b', b)
-                        if (b.hasPoint(x, y)) {
-                            log('点到某个砖',self.blocks, b['x'], b['y'], b['lifes'])
-                            self.hasBlock = true
-                            b['lifes'] = b['lifes'] + 1
-                        } else {
-                            log('点到的只是空白处', self.hasBlock)
-                            self.hasBlock = false
-                            var newPosition = {}
-                            newPosition['x'] = p['x']
-                            newPosition['y'] = p['y']
-                            newPosition['lifes'] = 1
-                            var newBlock = Block.new(game, newPosition)
-                            self.blocks.push(newBlock)
-                        }
-                    }
+                var b = self.positions[i]
+                if (locateBlock(b, self.baseX, self.baseY, x, y)) {
+                    // log('点到某格空白', b['x'], b['y'])
+                    var p = {}
+                    p['x'] = b['x']
+                    p['y'] = b['y']
+                    var b = Block.new(self.game, p)
+                    // log('b', b)
+                    self.blocks.push(b)
                 }
             }
-
-            log('this.hasBlock', self.hasBlock)
+            log('self.blocks mouse click', self.blocks.length)
         })
-
+        log('window.levels', window.levels)
+        bindEvent(self.game.canvas, 'keydown', function(evnet) {
+            var k = event.key
+            if (k == 's') {
+                window.levels.push(self.blocks)
+                var newEditor = SceneEditor.new(game)
+                game.replaceScene(newEditor)
+                log('key downs blocks', self.blocks)
+            } else if (k === 'k') {
+                if (window.levels.length > 0) {
+                    window.localStorage['levels'] = JSON.stringify(window.levels)
+                    window.levels = []
+                }
+                var main = Scene.new(game)
+                game.replaceScene(main)
+            }
+        })
     }
 
 
@@ -127,10 +100,7 @@ class SceneEditor extends GuaScene {
         var blocks = this.blocks
         for (var i = 0; i < blocks.length; i++) {
             var block = blocks[i]
-            if (s.hasBlock == false) {
-                game.drawImage(block)
-            }
-
+            game.drawImage(block)
         }
     }
     update() {

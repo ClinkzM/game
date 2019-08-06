@@ -1,6 +1,6 @@
 var loadLevel = function(game, n) {
     var len = n - 1
-    if (window.localStorage['levels'] != null) {
+    if (window.localStorage['levels'] != undefined) {
         log('保存到 localStorage 的关卡')
         var s = window.localStorage['levels']
         var levels = JSON.parse(s)
@@ -24,15 +24,6 @@ var enableDebugMode = function(game, enable) {
     }
     window.paused = false
     // var blocks = []
-    // window.addEventListener('keydown', function(event) {
-    //     var k = event.key
-    //     if (k == 'p') {
-    //         window.paused = !window.paused
-    //     } else if ('123456789'.includes(k)) {
-    //         blocks = loadLevel(game, Number(k))
-    //         log('blocks~', blocks)
-    //     }
-    // })
     bindEvent(window, 'keydown', function(evnet) {
         var k = event.key
         if (k == 'p') {
@@ -59,6 +50,9 @@ var __main = function() {
     }
 
     var fps = 30
+
+    window.levels = []
+    window.levelNumber = 0
 
     var game = GuaGame.instance(fps, images, function(g) {
         // var s = Scene.new(g)
