@@ -8,6 +8,8 @@ var locateBlock = function(block, width, height, x, y) {
 class SceneEditor extends GuaScene {
     constructor(game) {
         super(game)
+        // 画线的位置
+
 
         // 所有砖块的 x, y 位置
         this.baseX = 40
@@ -44,7 +46,7 @@ class SceneEditor extends GuaScene {
             for (let i = 0; i < self.positions.length; i++) {
                 let b = self.positions[i]
                 if (locateBlock(b, self.baseX, self.baseY, x, y)) {
-                    // log('点到某格空白', b['x'], b['y'])
+                    log('点到某格空白', b['x'], b['y'])
                     var p = {}
                     p['x'] = b['x']
                     p['y'] = b['y']
@@ -71,6 +73,7 @@ class SceneEditor extends GuaScene {
         //         game.replaceScene(main)
         //     }
         // })
+
     }
 
 
@@ -84,18 +87,16 @@ class SceneEditor extends GuaScene {
         context.fillRect(0, 0, 400, 300)
         // draw labels
         context.fillStyle = 'white'
-        context.fillText('按 k 开始游戏', 20, 280)
-        context.fillText('点击屏幕设置砖块', 100, 280)
-        context.fillText('按 s 保存并设置下一关，', 200, 280)
+        context.fillText('按 k 开始游戏', 20, 200)
+        context.fillText('按 s 保存并设置下一关，', 20, 235)
+        context.fillText('鼠标点击屏幕黑线以上设置砖块', 20, 270)
 
         // draw path
-        // context.beginPath()
-        // context.moveTo(s.borderLeft, s.borderTop)
-        // context.lineTo(s.borderLeft, s.borderBottom)
-        // context.lineTo(s.borderRight, s.borderBottom)
-        // context.lineTo(s.borderRight, s.borderTop)
-        // context.closePath()
-        // context.stroke()
+        context.beginPath()
+        context.moveTo(0, 175)
+        context.lineTo(400, 175)
+        context.closePath()
+        context.stroke()
 
         var blocks = this.blocks
         for (var i = 0; i < blocks.length; i++) {
