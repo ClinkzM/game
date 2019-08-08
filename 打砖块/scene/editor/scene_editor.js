@@ -1,7 +1,7 @@
 var locateBlock = function(block, width, height, x, y) {
     var o = block
-    var xIn = x >= o.x && x <= o.x + width
-    var yIn = y >= o.y && y <= o.y + height
+    var xIn = x > o.x && x <= o.x + width
+    var yIn = y > o.y && y <= o.y + height
     return xIn && yIn
 }
 
@@ -15,8 +15,8 @@ class SceneEditor extends GuaScene {
         this.positions = []
         this.columns = 10
         this.rows = 10
-        for (var i = 0; i < this.rows; i++) {
-            for (var j = 0; j < this.columns; j++) {
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.columns; j++) {
                 // var p = []
                 // p[0] = j * this.baseX
                 // p[1] = i * this.baseY
@@ -35,42 +35,42 @@ class SceneEditor extends GuaScene {
         //     var b = Block.new(game, p)
         //     this.blocks.push(b)
         // }
-
+        var num = 1
         var self = this
         bindEvent(self.game.canvas, 'click', function(event) {
-            var x = event.offsetX
-            var y = event.offsetY
-            for (var i = 0; i < self.positions.length; i++) {
-                var b = self.positions[i]
+            let x = event.offsetX
+            let y = event.offsetY
+            log('click', num++)
+            for (let i = 0; i < self.positions.length; i++) {
+                let b = self.positions[i]
                 if (locateBlock(b, self.baseX, self.baseY, x, y)) {
                     // log('点到某格空白', b['x'], b['y'])
                     var p = {}
                     p['x'] = b['x']
                     p['y'] = b['y']
-                    var b = Block.new(self.game, p)
-                    // log('b', b)
-                    self.blocks.push(b)
+                    let block = Block.new(self.game, p)
+                    self.blocks.push(block)
                 }
             }
             log('self.blocks mouse click', self.blocks.length)
         })
-        log('window.levels', window.levels)
-        bindEvent(self.game.canvas, 'keydown', function(evnet) {
-            var k = event.key
-            if (k == 's') {
-                window.levels.push(self.blocks)
-                var newEditor = SceneEditor.new(game)
-                game.replaceScene(newEditor)
-                log('key downs blocks', self.blocks)
-            } else if (k === 'k') {
-                if (window.levels.length > 0) {
-                    window.localStorage['levels'] = JSON.stringify(window.levels)
-                    window.levels = []
-                }
-                var main = Scene.new(game)
-                game.replaceScene(main)
-            }
-        })
+        // log('window.levels', window.levels)
+        // bindEvent(self.game.canvas, 'keydown', function(evnet) {
+        //     var k = event.key
+        //     if (k == 's') {
+        //         window.levels.push(self.blocks)
+        //         var newEditor = SceneEditor.new(game)
+        //         game.replaceScene(newEditor)
+        //         log('key downs blocks', self.blocks)
+        //     } else if (k === 'k') {
+        //         if (window.levels.length > 0) {
+        //             window.localStorage['levels'] = JSON.stringify(window.levels)
+        //             window.levels = []
+        //         }
+        //         var main = Scene.new(game)
+        //         game.replaceScene(main)
+        //     }
+        // })
     }
 
 
