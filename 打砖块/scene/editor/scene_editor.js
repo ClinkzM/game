@@ -37,16 +37,14 @@ class SceneEditor extends GuaScene {
         //     var b = Block.new(game, p)
         //     this.blocks.push(b)
         // }
-        var num = 1
         var self = this
         bindEvent(self.game.canvas, 'click', function(event) {
             let x = event.offsetX
             let y = event.offsetY
-            log('click', num++)
             for (let i = 0; i < self.positions.length; i++) {
                 let b = self.positions[i]
                 if (locateBlock(b, self.baseX, self.baseY, x, y)) {
-                    log('点到某格空白', b['x'], b['y'])
+                    // log('点到某格空白', b['x'], b['y'])
                     var p = {}
                     p['x'] = b['x']
                     p['y'] = b['y']
@@ -54,25 +52,27 @@ class SceneEditor extends GuaScene {
                     self.blocks.push(block)
                 }
             }
-            log('self.blocks mouse click', self.blocks.length)
+            // log('self.blocks mouse click', self.blocks.length)
         })
-        // log('window.levels', window.levels)
-        // bindEvent(self.game.canvas, 'keydown', function(evnet) {
-        //     var k = event.key
-        //     if (k == 's') {
-        //         window.levels.push(self.blocks)
-        //         var newEditor = SceneEditor.new(game)
-        //         game.replaceScene(newEditor)
-        //         log('key downs blocks', self.blocks)
-        //     } else if (k === 'k') {
-        //         if (window.levels.length > 0) {
-        //             window.localStorage['levels'] = JSON.stringify(window.levels)
-        //             window.levels = []
-        //         }
-        //         var main = Scene.new(game)
-        //         game.replaceScene(main)
-        //     }
-        // })
+
+        game.registerAction('k', function() {
+            if (window.levels.length > 0) {
+                window.localStorage['levels'] = JSON.stringify(window.levels)
+                window.levels = []
+            }
+
+            var main = Scene.new(game)
+            game.replaceScene(main)
+        })
+        var num = 1
+        log('window.levels', window.levels, window.levelNumber)
+        game.registerAction('s', function() {
+            log(`点到了${num++} 次`)
+            window.levels[window.levelNumber] = self.blocks
+            window.levelNumber = window.levelNumber + 1
+            var newEditor = SceneEditor.new(game)
+            game.replaceScene(newEditor)
+        })
 
     }
 

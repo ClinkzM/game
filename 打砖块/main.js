@@ -1,12 +1,11 @@
 var loadLevel = function(game, n) {
     var len = n - 1
-    if (window.localStorage['levels'] != undefined) {
-        log('保存到 localStorage 的关卡')
-        var s = window.localStorage['levels']
-        var levels = JSON.parse(s)
-    } else {
-        log('自带默认的关卡')
-        var levels = defaultLevels
+    var levels = defaultLevels
+    log('levels', levels, len)
+    var s = window.localStorage['levels']
+    if (s && JSON.parse(s).length > 0) {
+        levels = JSON.parse(s)
+        log('localStorage levels', levels)
     }
     var level = levels[len]
     var blocks = []
