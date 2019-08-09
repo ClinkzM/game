@@ -73,8 +73,6 @@ class Scene extends GuaScene {
         game.context.fillText('按 a 或 d 左右移动挡板', 175, 280)
         game.context.fillText('按 p 暂停游戏', 300, 280)
         game.context.fillText('按数字选择关卡', 100, 295)
-        // game.context.fillText('按 e 编辑砖块', 175, 295)
-        // game.context.fillText('按 s 保存砖块', 300, 295)
     }
 
     update() {
@@ -95,9 +93,9 @@ class Scene extends GuaScene {
         ball.move()
         if (ball.y > paddle.y) {
             // 跳转到游戏结束的场景
-            log('游戏结束跳转暂时注释掉了，之后记得注释回来在 scene.js 的 104 行')
-            // var end = SceneEnd.new(game)
-            // game.replaceScene(end)
+            // log('游戏结束跳转暂时注释掉了，之后记得注释回来在 scene.js 的 104 行')
+            var end = SceneEnd.new(game)
+            game.replaceScene(end)
         }
         // 判断球和挡板相撞
         if (paddle.collide(ball)) {

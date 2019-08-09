@@ -31,6 +31,12 @@ class Ball extends GuaImage{
         this.speedY = -this.speedY
         // this.speedX = -this.speedX
     }
+    hasPoint(x, y) {
+        var o = this
+        var xIn = x >= o.x && x <= o.x + o.w
+        var yIn = y >= o.y && y <= o.y + o.h
+        return xIn && yIn
+    }
 }
 
 

@@ -29,3 +29,10 @@ var rectIntersects = function(a, b) {
 var aInb = function(x, x1, x2) {
     return x >= x1 && x <= x2
 }
+
+var locateBlock = function(block, width, height, x, y) {
+    var o = block
+    var xIn = x > o.x && x <= o.x + width
+    var yIn = y > o.y && y <= o.y + height
+    return xIn && yIn
+}

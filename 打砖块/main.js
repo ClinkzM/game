@@ -22,7 +22,7 @@ var enableDebugMode = function(game, enable) {
         return
     }
     window.paused = false
-    // var blocks = []
+
     bindEvent(window, 'keydown', function(evnet) {
         var k = event.key
         if (k == 'p') {
@@ -51,12 +51,11 @@ var __main = function() {
     var fps = 30
 
     window.levels = []
-    window.levelNumber = 0
 
     var game = GuaGame.instance(fps, images, function(g) {
         // var s = Scene.new(g)
-        // var s = SceneTitle.new(g)
-        var s = SceneEditor.new(g)
+        var s = SceneTitle.new(g)
+        // var s = SceneEditor.new(g)
         g.runWithScene(s)
     })
 

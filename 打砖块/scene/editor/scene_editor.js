@@ -1,10 +1,3 @@
-var locateBlock = function(block, width, height, x, y) {
-    var o = block
-    var xIn = x > o.x && x <= o.x + width
-    var yIn = y > o.y && y <= o.y + height
-    return xIn && yIn
-}
-
 class SceneEditor extends GuaScene {
     constructor(game) {
         super(game)
@@ -28,10 +21,9 @@ class SceneEditor extends GuaScene {
                 this.positions.push(p)
             }
         }
-        // log('this.positions', this.positions.length)
 
         this.blocks = []
-        // 画出所有砖块
+        // 画出所有砖块 只是画出来看看。。
         // for (var i = 0; i < this.positions.length; i++) {
         //     var p = this.positions[i]
         //     var b = Block.new(game, p)
@@ -44,7 +36,6 @@ class SceneEditor extends GuaScene {
             for (let i = 0; i < self.positions.length; i++) {
                 let b = self.positions[i]
                 if (locateBlock(b, self.baseX, self.baseY, x, y)) {
-                    // log('点到某格空白', b['x'], b['y'])
                     var p = {}
                     p['x'] = b['x']
                     p['y'] = b['y']
@@ -52,7 +43,6 @@ class SceneEditor extends GuaScene {
                     self.blocks.push(block)
                 }
             }
-            // log('self.blocks mouse click', self.blocks.length)
         })
 
         game.registerAction('k', function() {
@@ -64,14 +54,15 @@ class SceneEditor extends GuaScene {
             var main = Scene.new(game)
             game.replaceScene(main)
         })
-        var num = 1
-        log('window.levels', window.levels, window.levelNumber)
+
         game.registerAction('s', function() {
-            log(`点到了${num++} 次`)
-            window.levels[window.levelNumber] = self.blocks
-            window.levelNumber = window.levelNumber + 1
-            var newEditor = SceneEditor.new(game)
-            game.replaceScene(newEditor)
+            // 做这个是为了过滤掉空的关卡，因为帧率的原因，你感觉按了一下键盘其实是按了好多下
+            if (self.blocks.length > 0) {
+                window.levels.push(self.blocks)
+                self.blocks = []
+                var newEditor = SceneEditor.new(game)
+                game.replaceScene(newEditor)
+            }
         })
 
     }
