@@ -5,10 +5,6 @@ class SceneTitle extends GuaScene {
         var bg = GuaImage.new(game, 'bg')
         this.addElement(bg)
 
-        // // 加入水管
-        // this.pipe = Pipes.new(game)
-        // this.addElement(this.pipe)
-
         // 循环移动的地面
         this.grounds = []
         for (var i = 0; i < 20; i++) {
