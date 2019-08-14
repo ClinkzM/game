@@ -1,79 +1,73 @@
 class Scene extends GuaScene {
     constructor(game) {
         super(game)
-        this.setup()
+        // var label = GuaLabel.new(game, 'Hello')
+        // this.addElement(label)
+
+        // bg
+        var bg = GuaImage.new(game, 'bg')
+        this.addElement(bg)
+
+        // 加入水管
+        this.pipe = Pipes.new(game)
+        this.addElement(this.pipe)
+
+        // 循环移动的地面
+        this.grounds = []
+        for (var i = 0; i < 20; i++) {
+            var g = GuaImage.new(game, 'ground')
+            g.x = i * 24
+            g.y = 540
+            this.addElement(g)
+            this.grounds.push(g)
+        }
+        this.skipCount = 5
+
+        // bird
+        this.birdSpeed = 2
+        var b = GuaAnimation.new(game)
+        b.x = 180
+        b.y = 200
+        this.bird = b
+        this.addElement(b)
+
+        // score
+        var score = GuaImage.new(game, 's0')
+        score.x = 180
+        score.y = 100
+        this.score = score
+        this.addElement(score)
+        // score.x =
+
         this.setupInputs()
     }
-    setup() {
-        var game = this.game
-        this.numberOfEnemies = 10
-        this.numberOfClouds = 5
-        this.bg = GuaImage.new(game, 'bg')
-        // this.cloud = Cloud.new(game)
-
-        // this.player = GuaImage.new(game, 'player')
-        // this.player.x = 100
-        // this.player.y = 150
-
-        this.player = Player.new(game)
-        this.player.x = 100
-        this.player.y = 450
-
-        this.addElement(this.bg)
-        this.addClouds()
-
-        this.addElement(this.player)
-
-        this.addEnemies()
-
-        // add particles
-        var ps = GuaParticleSystem.new(this.game)
-        this.addElement(ps)
-
+    debug() {
+        this.birdSpeed = config.bird_speed.value
     }
-
-    addEnemies() {
-        var es = []
-        for (var i = 0; i < this.numberOfEnemies; i++) {
-            var e = Enemy.new(this.game)
-            es.push(e)
-            this.addElement(e)
-        }
-        this.enemies = es
-    }
-
-    addClouds() {
-        var cs = []
-        for (var i = 0; i < this.numberOfClouds; i++) {
-            var e = Cloud.new(this.game)
-            cs.push(e)
-            this.addElement(e)
-        }
-        this.clouds = cs
-    }
-
-    setupInputs() {
-        var g = this.game
-        var s = this
-        g.registerAction('a', function() {
-            s.player.moveLeft()
-        })
-        g.registerAction('d', function() {
-            s.player.moveRight()
-        })
-        g.registerAction('w', function() {
-            s.player.moveUp()
-        })
-        g.registerAction('s', function() {
-            s.player.moveDown()
-        })
-        g.registerAction('j', function() {
-            s.player.fire()
-        })
-    }
-
     update() {
         super.update()
-        // this.cloud.y = this.cloud.y + 1
+        this.skipCount = this.skipCount - 1
+        var offset = -5
+        if (this.skipCount == 0) {
+            this.skipCount = 5
+            offset = 20
+        }
+        for (var i = 0; i < 20; i++) {
+            var g = this.grounds[i]
+            g.x = g.x + offset
+        }
+    }
+    setupInputs() {
+        var self = this
+        var b = this.bird
+        self.game.registerAction('a', function(keyStatus) {
+            b.move(-self.birdSpeed, keyStatus)
+        })
+        self.game.registerAction('d', function(keyStatus) {
+            b.move(self.birdSpeed, keyStatus)
+        })
+        self.game.registerAction('j', function(keyStatus) {
+            b.jump()
+        })
     }
 }
