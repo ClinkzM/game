@@ -80,7 +80,8 @@ class GuaAnimation {
             context.scale(-1, 1)
         }
 
-        context.globalAlpha = this.alpha
+        // 透明度暂时不做了
+        // context.globalAlpha = this.alpha
 
         context.rotate(this.rotation * Math.PI / 180)
         context.translate(-w2, -h2)
