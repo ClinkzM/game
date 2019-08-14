@@ -64,6 +64,18 @@ var __main = function() {
         b1: 'img/bird/b1.png',
         b2: 'img/bird/b2.png',
         b3: 'img/bird/b3.png',
+
+        // score
+        s0: 'img/score/0.png',
+        s1: 'img/score/1.png',
+        s2: 'img/score/2.png',
+        s3: 'img/score/3.png',
+        s4: 'img/score/4.png',
+        s5: 'img/score/5.png',
+        s6: 'img/score/6.png',
+        s7: 'img/score/7.png',
+        s8: 'img/score/8.png',
+        s9: 'img/score/9.png',
     }
     var game = GuaGame.instance(30, images, function(g){
         var s = SceneTitle.new(g)
