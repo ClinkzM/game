@@ -31,8 +31,10 @@ class Scene extends GuaScene {
         var scoreImage = GuaScore.new(game, 0)
         this.addElement(scoreImage)
 
+        // 键盘控制小鸟
         this.setupInputs()
 
+        // 游戏处于暂停时可以移动小鸟位置
         this.enableDrag = false
         this.debugBird()
     }
