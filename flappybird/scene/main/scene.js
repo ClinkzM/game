@@ -11,6 +11,7 @@ class Scene extends GuaScene {
         // 加入水管
         this.pipe = Pipes.new(game)
         this.addElement(this.pipe)
+        // log('this.pipe', this.pipe)
 
         // 循环移动的地面
         this.grounds = []
@@ -31,13 +32,9 @@ class Scene extends GuaScene {
         this.bird = b
         this.addElement(b)
 
-        // score
-        var score = GuaImage.new(game, 's0')
-        score.x = 180
-        score.y = 100
-        this.score = score
-        this.addElement(score)
-        // score.x =
+        // score initial
+        var scoreImage = GuaScore.new(game, 0)
+        this.addElement(scoreImage)
 
         this.setupInputs()
     }
@@ -56,6 +53,9 @@ class Scene extends GuaScene {
             var g = this.grounds[i]
             g.x = g.x + offset
         }
+
+        // 更新分数
+        // log('this.pipe', this.pipe)
     }
     setupInputs() {
         var self = this
