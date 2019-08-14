@@ -72,14 +72,10 @@ class Scene extends GuaScene {
     }
     getThroughPipes() {
         var pipes = this.pipe.pipes
-        log('this.pipe', pipes, this.bird.x)
         var birdX = this.bird.x
-        // var p0 = pipes[0].x
-        // var p2 = pipes[2].x
-        // var p4 = pipes[4].x
         for (let i = 0; i < pipes.length; i++) {
             if (i % 2 == 0) {
-                var pipeX = pipes[i].x
+                var pipeX = pipes[i].x + pipes[i].w
                 var pipePassBird = pipeX == birdX
                 if (pipePassBird) {
                     this.score = this.score + 1
@@ -88,7 +84,6 @@ class Scene extends GuaScene {
                 continue
             }
         }
-        // var pipePassBird = (p0 == b) || (p2 == b) || (p4 == b)
 
     }
     setupInputs() {
