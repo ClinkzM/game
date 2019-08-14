@@ -21,7 +21,7 @@ class GuaAnimation {
         //
         this.flipX = false
         this.rotation = 0
-        this.alpha = 1
+        // this.alpha = 1
         // 重力和加速度
         this.gy = 10
         this.vy = 0
@@ -42,13 +42,13 @@ class GuaAnimation {
         //     this.y = top
         // }
         this.rotation = -45
-        this.alpha = 1
+        // this.alpha = 1
     }
     update() {
         // 加透明度
-        if (this.alpha > 0) {
-            this.alpha = this.alpha - 0.05
-        }
+        // if (this.alpha > 0) {
+        //     this.alpha = this.alpha - 0.05
+        // }
         // 更新受力
         this.y = this.y + this.vy
         this.vy = this.vy + this.gy * 0.2
@@ -93,18 +93,6 @@ class GuaAnimation {
     move(x, keyStatus) {
         this.flipX = (x < 0)
         this.x = this.x + x
-        // log('move keyStatus', keyStatus)
-        // if (keyStatus == 'down') {
-        //     this.changeAnimation('run')
-        // } else if (keyStatus == 'up') {
-        //     this.changeAnimation('idle')
-        // }
-        // var animationName = {
-        //     down: 'run',
-        //     up: 'idle',
-        // }
-        // var name = animationName[keyStatus]
-        // this.changeAnimation(name)
     }
 
     changeAnimation(name) {
