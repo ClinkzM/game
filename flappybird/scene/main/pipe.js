@@ -2,13 +2,14 @@ class Pipes {
     constructor(game) {
         this.game = game
         this.pipes = []
-        this.pipeSpace = 150
+        this.pipeSpace = 250
         this.管子横向间距 = 200
         this.columnsOfPipe = 3
         for (var i = 0; i < this.columnsOfPipe; i++) {
             var p1 = GuaImage.new(game, 'pipe')
             p1.flipY = true
             p1.x = 500 + i * this.管子横向间距
+            log('p1.x', p1.x)
 
             var p2 = GuaImage.new(game, 'pipe')
             p2.x = p1.x
@@ -23,6 +24,7 @@ class Pipes {
     }
     resetPipesPosition(p1, p2) {
         p1.y = randomBetween(-300, 0)
+        log('p1.y', p1.y)
         p2.y = p1.y + p1.h + this.pipeSpace
     }
     debug() {

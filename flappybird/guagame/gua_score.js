@@ -3,7 +3,7 @@ class GuaScore {
         this.game = game
         this.score = String(score)
         this.scoreImages = []
-        log('this.score', this.score, typeof this.score)
+        // log('this.score', this.score, typeof this.score)
         for (var i = 0; i < 10; i++) {
             var name = `s${i}`
             var s = game.textureByName(name)

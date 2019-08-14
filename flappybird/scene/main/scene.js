@@ -28,8 +28,9 @@ class Scene extends GuaScene {
         this.setBird()
 
         // score initial
-        var scoreImage = GuaScore.new(game, 0)
-        this.addElement(scoreImage)
+        this.score = 0
+        this.scoreImage = GuaScore.new(this.game, this.score)
+        this.addElement(this.scoreImage)
 
         // 键盘控制小鸟
         this.setupInputs()
@@ -57,8 +58,38 @@ class Scene extends GuaScene {
             g.x = g.x + offset
         }
 
-        // 更新分数
-        // log('this.pipe', this.pipe)
+        // 更新分数图片
+        this.updateScore()
+
+        //
+        this.getThroughPipes()
+    }
+    updateScore() {
+        var newScoreImage = GuaScore.new(this.game, this.score)
+        // log('素材数组里分数的位置', this.elements[23])
+        var index = 23
+        this.elements.splice(index, 1, newScoreImage)
+    }
+    getThroughPipes() {
+        var pipes = this.pipe.pipes
+        log('this.pipe', pipes, this.bird.x)
+        var birdX = this.bird.x
+        // var p0 = pipes[0].x
+        // var p2 = pipes[2].x
+        // var p4 = pipes[4].x
+        for (let i = 0; i < pipes.length; i++) {
+            if (i % 2 == 0) {
+                var pipeX = pipes[i].x
+                var pipePassBird = pipeX == birdX
+                if (pipePassBird) {
+                    this.score = this.score + 1
+                }
+            } else {
+                continue
+            }
+        }
+        // var pipePassBird = (p0 == b) || (p2 == b) || (p4 == b)
+
     }
     setupInputs() {
         var self = this
