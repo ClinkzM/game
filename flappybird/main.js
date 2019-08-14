@@ -8,6 +8,7 @@ var enableDebugMode = function(game, enable) {
         if (k == 'p') {
             // 暂停功能
             window.paused = !window.paused
+            // log('window.paused', window.paused)
         }
     })
     // 控制速度

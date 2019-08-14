@@ -42,6 +42,9 @@ class Scene extends GuaScene {
         this.birdSpeed = config.bird_speed.value
     }
     update() {
+        if (window.paused) {
+            return
+        }
         super.update()
         this.skipCount = this.skipCount - 1
         var offset = -5
