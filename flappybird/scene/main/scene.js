@@ -32,6 +32,9 @@ class Scene extends GuaScene {
         this.addElement(scoreImage)
 
         this.setupInputs()
+
+        this.enableDrag = false
+        this.debugBird()
     }
     debug() {
         this.birdSpeed = config.bird_speed.value
@@ -70,15 +73,40 @@ class Scene extends GuaScene {
     }
     setBird() {
         var self = this
-        self.birdSpeed = 2
-        var birdAnimation = {
-            prefix: 'b',
-            length: 3,
-        }
-        var b = GuaAnimation.new(self.game, birdAnimation)
+        this.birdSpeed = 2
+        var b = GuaAnimation.new(self.game)
         b.x = 180
         b.y = 200
         self.bird = b
         self.addElement(b)
+    }
+    debugBird() {
+        var self = this
+        var game = this.game
+        bindEvent(game.canvas, 'mousedown', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            // 检查是否点中了 bird 并且游戏处于暂停状态
+            if (self.bird.hasPoint(x, y) && window.paused) {
+                // 设置拖拽状态
+                self.enableDrag = true
+            }
+        })
+        bindEvent(game.canvas, 'mousemove', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            if (self.enableDrag) {
+                self.bird.x = x
+                self.bird.y = y
+                self.bird.vy = 0
+                self.bird.gy = 10
+                self.bird.rotation = 0
+            }
+        })
+        bindEvent(game.canvas, 'mouseup', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            self.enableDrag = false
+        })
     }
 }

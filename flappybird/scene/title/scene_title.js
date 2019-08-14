@@ -56,14 +56,10 @@ class SceneTitle extends GuaScene {
     setBird() {
         var self = this
         self.birdSpeed = 2
-        var birdAnimation = {
-            prefix: 'b',
-            length: 3,
-        }
-        var b = GuaAnimation.new(self.game, birdAnimation)
+        var b = GuaAnimation.new(self.game)
         b.x = 180
         b.y = 200
-        // 起始画面的小鸟是没有重力和角度的
+        // 起始的时候小鸟是没有重力和角度的
         b.gy = 0
         b.rotation = 0
         self.bird = b
