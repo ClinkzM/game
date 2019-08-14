@@ -39,7 +39,7 @@ class GuaAnimation {
         // if (this.y < top && (this.y + this.vy) < top) {
         //     this.y = top
         // }
-        this.rotation = -45
+        this.rotation = -90
         // this.alpha = 1
     }
     update() {
@@ -54,9 +54,12 @@ class GuaAnimation {
         if (this.y > h) {
             this.y = h
         }
+
         // 更新角度
-        if (this.rotation < 45) {
+        if (this.rotation < 45 && this.y < h) {
             this.rotation = this.rotation + 45
+        } else if (this.y == h) {
+            this.rotation = 0
         }
         this.frameCount = this.frameCount - 1
         if (this.frameCount == 0) {
