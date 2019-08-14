@@ -17,15 +17,7 @@ class SceneTitle extends GuaScene {
         this.skipCount = 5
 
         // bird
-        this.birdSpeed = 2
-        var b = GuaAnimation.new(game)
-        b.x = 180
-        b.y = 200
-        // 起始的时候小鸟是没有重力和角度的
-        b.gy = 0
-        b.rotation = 0
-        this.bird = b
-        this.addElement(b)
+        this.setBird()
 
         this.setupInputs()
     }
@@ -60,5 +52,21 @@ class SceneTitle extends GuaScene {
             var main = Scene.new(self.game)
             self.game.replaceScene(main)
         })
+    }
+    setBird() {
+        var self = this
+        self.birdSpeed = 2
+        var birdAnimation = {
+            prefix: 'b',
+            length: 3,
+        }
+        var b = GuaAnimation.new(self.game, birdAnimation)
+        b.x = 180
+        b.y = 200
+        // 起始画面的小鸟是没有重力和角度的
+        b.gy = 0
+        b.rotation = 0
+        self.bird = b
+        self.addElement(b)
     }
 }

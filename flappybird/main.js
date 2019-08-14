@@ -62,9 +62,9 @@ var __main = function() {
         bg: 'img/bird/bg.png',
         pipe: 'img/bird/pipe.png',
         ground: 'img/bird/ground.png',
+        b0: 'img/bird/b0.png',
         b1: 'img/bird/b1.png',
         b2: 'img/bird/b2.png',
-        b3: 'img/bird/b3.png',
 
         // score
         s0: 'img/score/0.png',
@@ -79,8 +79,8 @@ var __main = function() {
         s9: 'img/score/9.png',
     }
     var game = GuaGame.instance(30, images, function(g){
-        // var s = SceneTitle.new(g)
-        var s = Scene.new(g)
+        var s = SceneTitle.new(g)
+        // var s = Scene.new(g)
         g.runWithScene(s)
     })
 

@@ -25,12 +25,7 @@ class Scene extends GuaScene {
         this.skipCount = 5
 
         // bird
-        this.birdSpeed = 2
-        var b = GuaAnimation.new(game)
-        b.x = 180
-        b.y = 200
-        this.bird = b
-        this.addElement(b)
+        this.setBird()
 
         // score initial
         var scoreImage = GuaScore.new(game, 0)
@@ -72,5 +67,18 @@ class Scene extends GuaScene {
         self.game.registerAction('j', function(keyStatus) {
             b.jump()
         })
+    }
+    setBird() {
+        var self = this
+        self.birdSpeed = 2
+        var birdAnimation = {
+            prefix: 'b',
+            length: 3,
+        }
+        var b = GuaAnimation.new(self.game, birdAnimation)
+        b.x = 180
+        b.y = 200
+        self.bird = b
+        self.addElement(b)
     }
 }
