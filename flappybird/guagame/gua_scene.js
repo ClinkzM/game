@@ -23,7 +23,7 @@ class GuaScene {
         }
     }
     update() {
-        this.debug() && this.debug()
+        this.debug && this.debug()
         if (this.debugModeEnabled) {
             for (var i = 0; i < this.elements.length; i++) {
                 var e = this.elements[i]

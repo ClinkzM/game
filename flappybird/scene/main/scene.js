@@ -63,20 +63,26 @@ class Scene extends GuaScene {
 
         //
         this.getThroughPipes()
+
+        // 判断球和挡板相撞
+        this.collidePipe()
     }
     updateScore() {
         var newScoreImage = GuaScore.new(this.game, this.score)
         // log('素材数组里分数的位置', this.elements[23])
-        var index = 23
-        this.elements.splice(index, 1, newScoreImage)
+        var scoreIndex = 23
+        this.elements.splice(scoreIndex, 1, newScoreImage)
     }
     getThroughPipes() {
         var pipes = this.pipe.pipes
-        var birdX = this.bird.x
         for (let i = 0; i < pipes.length; i++) {
+            // 因为有上下两根管子，上下两根管子的 x 是一样的，取一个 x 就可以
             if (i % 2 == 0) {
+                var birdX = this.bird.x
                 var pipeX = pipes[i].x + pipes[i].w
                 var pipePassBird = pipeX == birdX
+                // var birdPassPipe = birdX == pipeX
+                // log('birdX', birdX, pipeX, pipePassBird, birdPassPipe)
                 if (pipePassBird) {
                     this.score = this.score + 1
                 }
@@ -85,6 +91,27 @@ class Scene extends GuaScene {
             }
         }
 
+    }
+    collidePipe() {
+        var self = this
+        // var pipes = this.pipe.pipes
+        // for (var i = 0; i < pipes.length; i++) {
+        //     var p = pipes[i]
+        //     var c = p.collide(self.bird)
+        //     log('c', c)
+        //     if (p.collide(self.bird)) {
+        //
+        //         var end = SceneEnd.new(self.game)
+        //         // self.game.replaceScene(end)
+        //     }
+        // }
+        var c = self.pipe.collide(self.bird)
+        log('c', c)
+        if (c) {
+            var end = SceneEnd.new(self.game)
+            self.game.replaceScene(end)
+            // self.game.runWithScene(end)
+        }
     }
     setupInputs() {
         var self = this
@@ -135,6 +162,7 @@ class Scene extends GuaScene {
             var x = event.offsetX
             var y = event.offsetY
             self.enableDrag = false
+            window.paused = false
         })
     }
 }
