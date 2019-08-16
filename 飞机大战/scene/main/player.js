@@ -23,7 +23,6 @@ class Player extends GuaImage {
             b.y = y
             this.scene.addElement(b)
         }
-
     }
     moveLeft() {
         this.x = this.x - this.speed
