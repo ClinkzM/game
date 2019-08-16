@@ -58,6 +58,9 @@ class Scene extends GuaScene {
             g.x = g.x + offset
         }
 
+        // 不让鸟超过画布
+        this.birdMoveRange()
+
         // 更新分数图片
         this.updateScore()
 
@@ -75,17 +78,44 @@ class Scene extends GuaScene {
     }
     getThroughPipes() {
         var pipes = this.pipe.pipes
+        var pipeSpeed = this.pipe.pipeSpeed
         for (let i = 0; i < pipes.length; i++) {
             // 因为有上下两根管子，上下两根管子的 x 是一样的，取一个 x 就可以
             if (i % 2 == 0) {
                 var birdX = this.bird.x
+                // var birdX = this.bird.x + this.bird.w
                 var pipeX = pipes[i].x + pipes[i].w
+
                 var pipePassBird = pipeX == birdX
-                // var birdPassPipe = birdX == pipeX
-                // log('X', birdX, pipeX, pipePassBird) //, birdPassPipe)
-                if (pipePassBird) {
+                var birdPassPipe = birdX == pipeX
+                // if (i == 0) {
+                //     // log('birdX - pipeX', (birdX - pipeX >= 0) && (birdX - pipeX <= 5))
+                //     // log('birdX - pipeX', ((birdX - pipeX) > 1), ((birdX - pipeX) <= 6))
+                //     if (((birdX - pipeX) > 1) && ((birdX - pipeX) <= 6)) {
+                //         log('通过了')
+                //     }
+                // }
+                // if (i == 2) {
+                //     if (((birdX - pipeX) > 0) && ((birdX - pipeX) <= 5)) {
+                //         log('通过了 2')
+                //     }
+                // }
+                // if (i == 4) {
+                //     if (((birdX - pipeX) > -1) && ((birdX - pipeX) <= 4)) {
+                //         log('通过了 3')
+                //     }
+                // }
+                log('pipeSpeed', pipeSpeed)
+                if (((birdX - pipeX) >= 0) && ((birdX - pipeX) < pipeSpeed)) {
+                    log('通过了')
                     this.score = this.score + 1
                 }
+                // log('')
+                // log('pipeX', pipeX, pipePassBird) //, birdPassPipe)
+
+                // if (pipePassBird) {
+                //     this.score = this.score + 1
+                // }
             } else {
                 continue
             }
@@ -124,6 +154,13 @@ class Scene extends GuaScene {
         b.y = 200
         self.bird = b
         self.addElement(b)
+    }
+    birdMoveRange() {
+        if (this.bird.x < 0) {
+            this.bird.x = 0
+        } else if ((this.bird.x + this.bird.w) > 400) {
+            this.bird.x = 400 - this.bird.w
+        }
     }
     debugBird() {
         var self = this

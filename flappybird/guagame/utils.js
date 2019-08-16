@@ -32,6 +32,12 @@ const rectIntersects = function(a, b) {
     return false
 }
 
+var abs = function(n) {
+    if (n < 0)
+    n = - n
+    return n
+}
+
 const randomBetween = function(start, end) {
     var n = Math.random() * (end - start + 1)
     return Math.floor(n + start)

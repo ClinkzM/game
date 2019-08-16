@@ -5,7 +5,7 @@ var config = {
     },
     '管子横向间距': {
         _comment: '管子横向间距',
-        value: 150,
+        value: 200,
     },
     bird_speed: {
         _comment: '小鸟的速度',

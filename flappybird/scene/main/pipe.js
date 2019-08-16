@@ -5,6 +5,7 @@ class Pipes {
         this.pipeSpace = 250
         this.管子横向间距 = 200
         this.columnsOfPipe = 3
+        this.pipeSpeed = 5
         for (var i = 0; i < this.columnsOfPipe; i++) {
             var p1 = GuaImage.new(game, 'pipe')
             p1.flipY = true
@@ -23,25 +24,32 @@ class Pipes {
     resetPipesPosition(p1, p2) {
         p1.y = randomBetween(-300, 0)
         p2.y = p1.y + p1.h + this.pipeSpace
+        // log('p1.y', p1.y, 'p2.y', p2.y)
     }
     debug() {
         this.管子横向间距 = config.管子横向间距.value
         this.pipeSpace = config.pipe_space.value
     }
     update() {
-        // log('this.管子横向间距', this.管子横向间距)
-        for (var i = 0; i < this.pipes.length / 2; i += 2) {
+        // var length = this.pipes.length / 2
+        var length = this.pipes.length - 1
+        // var length = this.pipes.length
+        for (var i = 0; i < length; i += 2) {
             var p1 = this.pipes[i]
             var p2 = this.pipes[i + 1]
-            p1.x = p1.x - 5
-            p2.x = p2.x - 5
+            // log('i', i)
+            p1.x = p1.x - this.pipeSpeed
+            p2.x = p2.x - this.pipeSpeed
             if (p1.x < -100) {
                 p1.x = p1.x + this.管子横向间距 * this.columnsOfPipe
+                // log('p1.x', p1.x)
             }
             if (p2.x < -100) {
                 p2.x = p2.x + this.管子横向间距 * this.columnsOfPipe
+                // log('p2.x', p1.x)
                 this.resetPipesPosition(p1, p2)
             }
+
         }
     }
     draw() {
@@ -70,7 +78,7 @@ class Pipes {
             let p = pipes[i]
             let c = (rectIntersects(p, b) || rectIntersects(b, p))
             if (c) {
-                log('鸟撞到了管子')
+                // log('鸟撞到了管子')
                 return c
             }
         }
