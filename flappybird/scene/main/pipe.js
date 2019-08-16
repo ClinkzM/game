@@ -24,7 +24,6 @@ class Pipes {
     resetPipesPosition(p1, p2) {
         p1.y = randomBetween(-300, 0)
         p2.y = p1.y + p1.h + this.pipeSpace
-        // log('p1.y', p1.y, 'p2.y', p2.y)
     }
     debug() {
         this.管子横向间距 = config.管子横向间距.value
@@ -42,11 +41,9 @@ class Pipes {
             p2.x = p2.x - this.pipeSpeed
             if (p1.x < -100) {
                 p1.x = p1.x + this.管子横向间距 * this.columnsOfPipe
-                // log('p1.x', p1.x)
             }
             if (p2.x < -100) {
                 p2.x = p2.x + this.管子横向间距 * this.columnsOfPipe
-                // log('p2.x', p1.x)
                 this.resetPipesPosition(p1, p2)
             }
 

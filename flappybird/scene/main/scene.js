@@ -83,39 +83,13 @@ class Scene extends GuaScene {
             // 因为有上下两根管子，上下两根管子的 x 是一样的，取一个 x 就可以
             if (i % 2 == 0) {
                 var birdX = this.bird.x
-                // var birdX = this.bird.x + this.bird.w
                 var pipeX = pipes[i].x + pipes[i].w
-
                 var pipePassBird = pipeX == birdX
                 var birdPassPipe = birdX == pipeX
-                // if (i == 0) {
-                //     // log('birdX - pipeX', (birdX - pipeX >= 0) && (birdX - pipeX <= 5))
-                //     // log('birdX - pipeX', ((birdX - pipeX) > 1), ((birdX - pipeX) <= 6))
-                //     if (((birdX - pipeX) > 1) && ((birdX - pipeX) <= 6)) {
-                //         log('通过了')
-                //     }
-                // }
-                // if (i == 2) {
-                //     if (((birdX - pipeX) > 0) && ((birdX - pipeX) <= 5)) {
-                //         log('通过了 2')
-                //     }
-                // }
-                // if (i == 4) {
-                //     if (((birdX - pipeX) > -1) && ((birdX - pipeX) <= 4)) {
-                //         log('通过了 3')
-                //     }
-                // }
-                log('pipeSpeed', pipeSpeed)
                 if (((birdX - pipeX) >= 0) && ((birdX - pipeX) < pipeSpeed)) {
-                    log('通过了')
+                    // log('通过了')
                     this.score = this.score + 1
                 }
-                // log('')
-                // log('pipeX', pipeX, pipePassBird) //, birdPassPipe)
-
-                // if (pipePassBird) {
-                //     this.score = this.score + 1
-                // }
             } else {
                 continue
             }
@@ -126,10 +100,17 @@ class Scene extends GuaScene {
         var self = this
         var c = self.pipe.collide(self.bird)
         if (c) {
-            // log('撞到了管子')
-            // var end = SceneEnd.new(self.game)
-            // self.game.replaceScene(end)
-            // self.game.runWithScene(end)
+            log('撞到了管子')
+            log('分数是多少', this.score)
+            log('管子位置', this.pipe)
+            log('鸟的位置', this.bird)
+            var endMessage = {
+                score: this.score,
+                pipe: this.pipe,
+                bird: this.bird,
+            }
+            var end = SceneEnd.new(self.game, endMessage)
+            self.game.replaceScene(end)
         }
     }
     setupInputs() {
