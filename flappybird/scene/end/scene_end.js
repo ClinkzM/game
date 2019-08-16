@@ -72,7 +72,7 @@ class SceneEnd extends GuaScene {
         this.game.context.fillText('本次得分', 200, 185)
         this.game.context.fillText('历史得分', 200, 285)
         this.game.context.fillStyle = 'white'
-        this.game.context.fillText('按 R 重新开始', 200, 400)
+        this.game.context.fillText('按 r 重新开始', 200, 400)
     }
     update() {
 
