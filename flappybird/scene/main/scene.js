@@ -100,10 +100,7 @@ class Scene extends GuaScene {
         var self = this
         var c = self.pipe.collide(self.bird)
         if (c) {
-            log('撞到了管子')
-            log('分数是多少', this.score)
-            log('管子位置', this.pipe)
-            log('鸟的位置', this.bird)
+            // log('撞到了管子')
             var endMessage = {
                 score: this.score,
                 pipe: this.pipe,

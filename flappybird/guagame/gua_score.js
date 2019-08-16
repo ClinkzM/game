@@ -15,6 +15,7 @@ class GuaScore {
         this.canvasW = this.game.canvas.width
         this.canvasH = this.game.canvas.height
         this.space = 10
+        this.y = 100
     }
     static new(game, score) {
         return new this(game, score)
@@ -30,7 +31,7 @@ class GuaScore {
             var len = self.score.length
             var x = self.positionX(i, len)
             // log('x', x)
-            var y = 100
+            var y = this.y
             context.drawImage(t, x, y)
         }
     }

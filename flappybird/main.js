@@ -65,6 +65,7 @@ var __main = function() {
         b0: 'img/bird/b0.png',
         b1: 'img/bird/b1.png',
         b2: 'img/bird/b2.png',
+        gameover: 'img/bird/gameover.png',
 
         // score
         s0: 'img/score/0.png',

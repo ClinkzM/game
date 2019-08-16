@@ -24,6 +24,17 @@ class SceneTitle extends GuaScene {
     debug() {
         this.birdSpeed = config.bird_speed.value
     }
+    draw() {
+        super.draw()
+        // draw labels
+        this.game.context.fillStyle = 'pink'
+        this.game.context.font = "32px serif"
+        this.game.context.textAlign = 'center'
+        this.game.context.fillText('按 a 左移', 200, 185)
+        this.game.context.fillText('按 d 右移', 200, 285)
+        // this.game.context.fillStyle = 'white'
+        this.game.context.fillText('按 j 开始游戏', 200, 400)
+    }
     update() {
         super.update()
         this.skipCount = this.skipCount - 1
