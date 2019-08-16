@@ -74,7 +74,7 @@ class Scene extends GuaScene {
         this.elements.splice(scoreIndex, 1, newScoreImage)
     }
     getThroughPipes() {
-        var pipes = this.pipe.pipes
+        var pipes = self.pipe.pipes
         for (let i = 0; i < pipes.length; i++) {
             // 因为有上下两根管子，上下两根管子的 x 是一样的，取一个 x 就可以
             if (i % 2 == 0) {
@@ -94,22 +94,11 @@ class Scene extends GuaScene {
     }
     collidePipe() {
         var self = this
-        // var pipes = this.pipe.pipes
-        // for (var i = 0; i < pipes.length; i++) {
-        //     var p = pipes[i]
-        //     var c = p.collide(self.bird)
-        //     log('c', c)
-        //     if (p.collide(self.bird)) {
-        //
-        //         var end = SceneEnd.new(self.game)
-        //         // self.game.replaceScene(end)
-        //     }
-        // }
         var c = self.pipe.collide(self.bird)
-        log('c', c)
         if (c) {
-            var end = SceneEnd.new(self.game)
-            self.game.replaceScene(end)
+            // log('撞到了管子')
+            // var end = SceneEnd.new(self.game)
+            // self.game.replaceScene(end)
             // self.game.runWithScene(end)
         }
     }
