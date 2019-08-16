@@ -64,10 +64,10 @@ class Scene extends GuaScene {
         // 更新分数图片
         this.updateScore()
 
-        //
+        // 穿过管子
         this.getThroughPipes()
 
-        // 判断球和挡板相撞
+        // 判断鸟和管子相撞
         this.collidePipe()
     }
     updateScore() {

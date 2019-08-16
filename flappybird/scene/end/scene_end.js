@@ -38,7 +38,7 @@ class SceneEnd extends GuaScene {
         // 最后分数
         var score = endMessage.score
         this.score = score
-        log('score', score)
+        // log('score', score)
         this.scoreImage = GuaScore.new(this.game, this.score)
         this.scoreImage.y = 200
         this.addElement(this.scoreImage)

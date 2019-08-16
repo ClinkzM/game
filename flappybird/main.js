@@ -24,7 +24,8 @@ var templateControl = function(key, item) {
         <div class="">
             <label>
                 <input class="gua-auto-slider" type="range" value="${item.value}"
-                max="300"
+                max="${item.max}"
+                min="${item.min}"
                 data-value="config.${key}"
                 >
                 ${item._comment}：

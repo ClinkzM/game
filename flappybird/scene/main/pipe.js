@@ -6,6 +6,8 @@ class Pipes {
         this.管子横向间距 = 200
         this.columnsOfPipe = 3
         this.pipeSpeed = 5
+        this.canvasW = this.game.canvas.width
+        this.outlineX = -100
         for (var i = 0; i < this.columnsOfPipe; i++) {
             var p1 = GuaImage.new(game, 'pipe')
             p1.flipY = true
@@ -28,10 +30,11 @@ class Pipes {
     debug() {
         this.管子横向间距 = config.管子横向间距.value
         this.pipeSpace = config.pipe_space.value
+        this.outlineX = config.outline_x.value
     }
     update() {
-        // var length = this.pipes.length / 2
-        var length = this.pipes.length - 1
+        var length = this.pipes.length / 2
+        // var length = this.pipes.length - 1
         // var length = this.pipes.length
         for (var i = 0; i < length; i += 2) {
             var p1 = this.pipes[i]
@@ -39,10 +42,18 @@ class Pipes {
             // log('i', i)
             p1.x = p1.x - this.pipeSpeed
             p2.x = p2.x - this.pipeSpeed
-            if (p1.x < -100) {
-                p1.x = p1.x + this.管子横向间距 * this.columnsOfPipe
+            var 管子横向间距最小值 = (this.canvasW - this.outlineX ) / this.columnsOfPipe
+            if (this.管子横向间距 < 管子横向间距最小值) {
+                this.管子横向间距 = 管子横向间距最小值
             }
-            if (p2.x < -100) {
+            if (p1.x < this.outlineX) {
+                p1.x = p1.x + this.管子横向间距 * this.columnsOfPipe
+                // log('p1.x', p1.x)
+                // -100 + 85*3 = 155 < 400
+                // -100 + this.管子横向间距 * this.columnsOfPipe = p1.x > 400
+                // 100 + p1.x = this.管子横向间距 * this.columnsOfPipe
+            }
+            if (p2.x < this.outlineX) {
                 p2.x = p2.x + this.管子横向间距 * this.columnsOfPipe
                 this.resetPipesPosition(p1, p2)
             }
