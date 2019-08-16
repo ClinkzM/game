@@ -74,7 +74,7 @@ class Scene extends GuaScene {
         this.elements.splice(scoreIndex, 1, newScoreImage)
     }
     getThroughPipes() {
-        var pipes = self.pipe.pipes
+        var pipes = this.pipe.pipes
         for (let i = 0; i < pipes.length; i++) {
             // 因为有上下两根管子，上下两根管子的 x 是一样的，取一个 x 就可以
             if (i % 2 == 0) {
@@ -82,7 +82,7 @@ class Scene extends GuaScene {
                 var pipeX = pipes[i].x + pipes[i].w
                 var pipePassBird = pipeX == birdX
                 // var birdPassPipe = birdX == pipeX
-                // log('birdX', birdX, pipeX, pipePassBird, birdPassPipe)
+                // log('X', birdX, pipeX, pipePassBird) //, birdPassPipe)
                 if (pipePassBird) {
                     this.score = this.score + 1
                 }
@@ -105,6 +105,7 @@ class Scene extends GuaScene {
     setupInputs() {
         var self = this
         var b = this.bird
+        // 左右移动
         self.game.registerAction('a', function(keyStatus) {
             b.move(-self.birdSpeed, keyStatus)
         })

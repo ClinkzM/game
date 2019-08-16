@@ -70,7 +70,7 @@ class Pipes {
             let p = pipes[i]
             let c = (rectIntersects(p, b) || rectIntersects(b, p))
             if (c) {
-                // log('鸟撞到了管子')
+                log('鸟撞到了管子')
                 return c
             }
         }
