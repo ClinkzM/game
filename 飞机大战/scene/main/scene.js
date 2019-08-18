@@ -6,7 +6,7 @@ class Scene extends GuaScene {
     }
     setup() {
         var game = this.game
-        this.numberOfEnemies = 10
+        this.numberOfEnemies = 5
         this.numberOfClouds = 5
         this.bg = GuaImage.new(game, 'bg')
         // this.cloud = Cloud.new(game)
@@ -71,9 +71,23 @@ class Scene extends GuaScene {
             s.player.fire()
         })
     }
-
+    collidePlayer() {
+        var self = this
+        var c = self.pipe.collide(self.bird)
+        if (c) {
+            // log('撞到了Player')
+            var endMessage = {
+                score: this.score,
+                pipe: this.pipe,
+                bird: this.bird,
+            }
+            var end = SceneEnd.new(self.game, endMessage)
+            self.game.replaceScene(end)
+        }
+    }
     update() {
         super.update()
         // this.cloud.y = this.cloud.y + 1
+        log('')
     }
 }
