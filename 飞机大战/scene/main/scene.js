@@ -88,6 +88,6 @@ class Scene extends GuaScene {
     update() {
         super.update()
         // this.cloud.y = this.cloud.y + 1
-        log('')
+        // log('')
     }
 }

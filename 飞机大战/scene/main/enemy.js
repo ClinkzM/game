@@ -27,6 +27,7 @@ class Enemy extends GuaImage {
             this.cooldown = this.cooldown - 1
         } else {
             this.cooldown = randomBetween(6, 10) - this.speed
+            log('this.cooldown', this.cooldown, this.speed)
         }
     }
     fire() {
@@ -34,14 +35,13 @@ class Enemy extends GuaImage {
             this.cooldown = config.fire_cooldown
             var x = this.x + this.w / 2
             var y = this.y + this.h
-            var b = Bullet.new(this.game)
+            var b = EnemyBullet.new(this.game, this.speed)
             b.x = x
             b.y = y
-            b.update = this.bulletDirection
             this.scene.addElement(b)
         }
     }
     bulletDirection() {
-        this.y = this.y + this.speed
+
     }
 }

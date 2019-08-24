@@ -18,7 +18,7 @@ class Player extends GuaImage {
             this.cooldown = config.fire_cooldown
             var x = this.x + this.w / 2
             var y = this.y
-            var b = Bullet.new(this.game)
+            var b = PlayerBullet.new(this.game)
             b.x = x
             b.y = y
             this.scene.addElement(b)

@@ -1,6 +1,7 @@
-class Bullet extends GuaImage {
-    constructor(game) {
+class EnemyBullet extends GuaImage {
+    constructor(game, enemySpeed) {
         super(game, 'bullet')
+        this.enemySpeed = enemySpeed
         this.setup()
     }
     setup() {
@@ -9,6 +10,6 @@ class Bullet extends GuaImage {
     }
     update() {
         // this.speed = config.bullet_speed
-        this.y = this.y - this.speed
+        this.y = this.y + this.speed + this.enemySpeed
     }
 }
