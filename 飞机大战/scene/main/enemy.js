@@ -12,36 +12,36 @@ class Enemy extends GuaImage {
         this.cooldown = randomBetween(6, 10) - this.speed
         this.w = this.texture.width
         this.h = this.texture.height
+        this.bullets = []
+        this.gone = false
     }
     update() {
         this.y = this.y + this.speed
         if (this.y > 600) {
             this.setup()
         }
-        // log('this.heigh', this.h)
         if (this.y + this.h > 0) {
-
             this.fire()
         }
         if (this.cooldown > 0) {
             this.cooldown = this.cooldown - 1
         } else {
             this.cooldown = randomBetween(6, 10) - this.speed
-            log('this.cooldown', this.cooldown, this.speed)
         }
     }
     fire() {
         if (this.cooldown == 0) {
-            this.cooldown = config.fire_cooldown
+            this.cooldown = config.enemy_fire_cooldown
             var x = this.x + this.w / 2
             var y = this.y + this.h
             var b = EnemyBullet.new(this.game, this.speed)
             b.x = x
             b.y = y
+            this.bullets.push(b)
             this.scene.addElement(b)
         }
     }
-    bulletDirection() {
-
+    die() {
+        this.gone = true
     }
 }

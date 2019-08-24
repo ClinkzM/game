@@ -27,9 +27,8 @@ class Scene extends GuaScene {
         this.addEnemies()
 
         // add particles
-        var ps = GuaParticleSystem.new(this.game)
-        this.addElement(ps)
-
+        // var ps = GuaParticleSystem.new(this.game)
+        // this.addElement(ps)
     }
 
     addEnemies() {
@@ -71,23 +70,49 @@ class Scene extends GuaScene {
             s.player.fire()
         })
     }
-    collidePlayer() {
-        var self = this
-        var c = self.pipe.collide(self.bird)
-        if (c) {
-            // log('撞到了Player')
-            var endMessage = {
-                score: this.score,
-                pipe: this.pipe,
-                bird: this.bird,
-            }
-            var end = SceneEnd.new(self.game, endMessage)
-            self.game.replaceScene(end)
-        }
-    }
+
     update() {
         super.update()
-        // this.cloud.y = this.cloud.y + 1
-        // log('')
+        // this.removeBullets()
+        this.playerDie()
+    }
+    playerDie() {
+        // for e in self.enemies:
+        //     for b in self.bullets:
+        //     x, y = b.sprite.position
+        //     # 如果碰撞到了，调用敌人的领盒饭方法
+        //     if e.sprite.contains(x, y):
+        //     # 这里只是改变了敌人是否去领盒饭的状态
+        //     # 并没有删除去领盒饭的敌人
+        //         e.lyhefj()
+        //     # 碰撞检测完成后，删除去领盒饭的敌人
+        //     # 调用函数，以免代码过长增加程序的复杂度
+                // self.remove_gone_enemies()
+        var player = this.player
+        for (var i = 0; i < this.enemies.length; i++) {
+            var e = this.enemies[i]
+            var collideEnemy = rectIntersects(e, player) || rectIntersects(player, e)
+            for (var j = 0; j < e.bullets.length; j++) {
+                var b = e.bullets[j]
+                var collideEnemyBullets = rectIntersects(b, player) || rectIntersects(player, b)
+                if (collideEnemy) {
+                    log('撞到敌机', collideEnemy)
+                } else if (collideEnemyBullets) {
+                    log('撞到子弹', collideEnemyBullets)
+                }
+            }
+            e.bullets = this.removeGoneElements(e.bullets)
+        }
+        this.enemies = this.removeGoneElements(this.enemies)
+    }
+    removeGoneElements(elements) {
+        var es = []
+        for (var i = 0; i < elements.length; i++) {
+            var e = elements[i]
+            if (!e.gone) {
+                es.push(e)
+            }
+        }
+        return es
     }
 }

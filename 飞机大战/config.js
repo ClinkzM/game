@@ -3,5 +3,6 @@ var config = {
     cloud_speed: 1,
     enemy_speed: 5,
     bullet_speed: 5,
-    fire_cooldown: 9,
+    player_fire_cooldown: 9,
+    enemy_fire_cooldown: 100,
 }

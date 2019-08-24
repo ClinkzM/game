@@ -15,7 +15,7 @@ class Player extends GuaImage {
     }
     fire() {
         if (this.cooldown == 0) {
-            this.cooldown = config.fire_cooldown
+            this.cooldown = config.player_fire_cooldown
             var x = this.x + this.w / 2
             var y = this.y
             var b = PlayerBullet.new(this.game)
@@ -24,6 +24,7 @@ class Player extends GuaImage {
             this.scene.addElement(b)
         }
     }
+
     moveLeft() {
         this.x = this.x - this.speed
     }

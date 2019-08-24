@@ -5,11 +5,15 @@ class EnemyBullet extends GuaImage {
         this.setup()
     }
     setup() {
+        this.gone = false
         this.speed = config.bullet_speed
         // this.speed = 1
     }
     update() {
         // this.speed = config.bullet_speed
         this.y = this.y + this.speed + this.enemySpeed
+    }
+    die() {
+        this.gone = true
     }
 }
