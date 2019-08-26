@@ -16,4 +16,10 @@ class EnemyBullet extends GuaImage {
     die() {
         this.gone = true
     }
+    draw() {
+        if (this.gone) {
+            return
+        }
+        super.draw()
+    }
 }

@@ -29,6 +29,12 @@ class Enemy extends GuaImage {
             this.cooldown = randomBetween(6, 10) - this.speed
         }
     }
+    draw() {
+        if (this.gone) {
+            return
+        }
+        super.draw()
+    }
     fire() {
         if (this.cooldown == 0) {
             this.cooldown = config.enemy_fire_cooldown

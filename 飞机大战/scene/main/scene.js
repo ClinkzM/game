@@ -72,6 +72,9 @@ class Scene extends GuaScene {
     }
 
     update() {
+        if (window.paused) {
+            return
+        }
         super.update()
         // this.removeBullets()
         this.playerDie()
@@ -97,18 +100,23 @@ class Scene extends GuaScene {
                 var collideEnemyBullets = rectIntersects(b, player) || rectIntersects(player, b)
                 if (collideEnemy) {
                     log('撞到敌机', collideEnemy)
+                    e.gone = true
                 } else if (collideEnemyBullets) {
-                    log('撞到子弹', collideEnemyBullets)
+                    log('撞到子弹', collideEnemyBullets, b)
+                    b.gone = true
+                    // log('b.gone', b.gone)
+                    // e.bullets.splice(j, 1)
                 }
             }
-            e.bullets = this.removeGoneElements(e.bullets)
+            // e.bullets = this.removeGoneElements(e.bullets)
         }
-        this.enemies = this.removeGoneElements(this.enemies)
+        // this.enemies = this.removeGoneElements(this.enemies)
     }
     removeGoneElements(elements) {
         var es = []
         for (var i = 0; i < elements.length; i++) {
             var e = elements[i]
+            log(e.gone)
             if (!e.gone) {
                 es.push(e)
             }
