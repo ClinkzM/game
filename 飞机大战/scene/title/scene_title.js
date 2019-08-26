@@ -1,15 +1,23 @@
 class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)
-        var label = GuaLabel.new(game, 'hello')
-        this.addElement(label)
+        this.init(game)
 
-        var ps = GuaParticleSystem.new(game)
-        this.addElement(ps)
+    }
+    init(game) {
+        game.registerAction('k', function() {
+            var main = Scene.new(game)
+            game.replaceScene(main)
+        })
+        var text = {
+            text: '按 k 开始游戏',
+            color: 'black',
+            font: '48px serif'
+        }
+        var label = GuaLabel.new(game, text)
+        this.addElement(label)
     }
     // draw() {
-    //     // draw labels
-    //     // this.game.context.fillText('按 k 开始游戏', 100, 190)
     //     super.draw()
     // }
 }

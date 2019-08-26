@@ -1,13 +1,23 @@
 class SceneEnd extends GuaScene {
     constructor(game) {
         super(game)
-        game.registerAction('r', function(){
+        this.init(game)
+    }
+    init(game) {
+        game.registerAction('r', function() {
             var s = SceneTitle.new(game)
             game.replaceScene(s)
         })
+        var text = {
+            text: '游戏结束, 按 r 返回标题界面',
+            color: 'red',
+            font: '24px serif'
+        }
+        var label = GuaLabel.new(game, text)
+        this.addElement(label)
     }
-    draw() {
-        // draw labels
-        this.game.context.fillText('游戏结束, 按 r 返回标题界面', 100, 290)
-    }
+    // draw() {
+    //     // draw labels
+    //     super.draw()
+    // }
 }
