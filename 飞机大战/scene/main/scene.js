@@ -27,8 +27,6 @@ class Scene extends GuaScene {
         this.addEnemies()
 
         this.score = 0
-        var label = this.setScore()
-        this.addElement(label)
     }
 
 
@@ -156,6 +154,7 @@ class Scene extends GuaScene {
                 var hited = collide(e, b)
                 if (hited) {
                     // log('子弹打到了敌机')
+                    this.getScore()
                     var particlesParams = {
                         x: e.x,
                         y: e.y,
@@ -164,33 +163,23 @@ class Scene extends GuaScene {
                     }
                     this.particles(particlesParams)
                     e.die()
-                    e.bullets = []
-                    var score = 10
-                    this.getScore(score)
+                    b.die()
+                    // 修复分数一下加很多的问题
+                    e.setup()
                 }
             }
         }
     }
 
-    setScore() {
-        var text = {
-            text: `当前得分：${this.score}`,
-            color: 'white',
-            font: '28px serif',
-            x: 0,
-            y: 580,
-        }
-        var scoreLabel = GuaLabel.new(this.game, text)
-        return scoreLabel
+    getScore() {
+        // log('得到分数')
+        this.score = this.score + 100
     }
 
-    getScore(score) {
-        // log('得到分数')
-        this.score = this.score + score
-        var newScore = this.setScore()
-        // log('this.elements', this.elements)
-        // log('素材数组里分数的位置', this.elements[12], newScore)
-        var scoreIndex = 12
-        this.elements.splice(scoreIndex, 1, newScore)
+    draw() {
+        super.draw()
+        this.game.context.font = "24px serif";
+        this.game.context.fillStyle = 'white'
+        this.game.context.fillText(`当前得分： ${this.score}`, 10, 580)
     }
 }
