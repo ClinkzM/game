@@ -106,9 +106,11 @@ class Scene extends GuaScene {
                 }
                 if (collideEnemy) {
                     // log('撞到敌机，敌机消失，敌机的子弹也消失', collideEnemy, e.x, e.y)
+                    e.bullets = []
                     this.playerCrashed(e, particlesParams)
                 } else if (collideEnemyBullets) {
                     // log('撞到子弹', collideEnemyBullets, b)
+                    particlesParams.number = 50
                     this.playerCrashed(b, particlesParams)
                 }
             }
@@ -116,11 +118,6 @@ class Scene extends GuaScene {
     }
 
     playerCrashed(element, particlesParams) {
-        if (element.name == 'enemy') {
-            element.bullets = []
-        } else if (element.name == 'enemyBullet') {
-            particlesParams.number = 50
-        }
         var player = this.player
         player.die()
         element.die()
