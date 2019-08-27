@@ -85,7 +85,6 @@ class Scene extends GuaScene {
         super.update()
         this.playerDie()
         this.killEnemy()
-        // log('this.elemets', this.elements)
     }
 
 
@@ -96,7 +95,6 @@ class Scene extends GuaScene {
             var e = es[i]
             var collideEnemy = collide(e, player)
             var bs = e.bullets
-            // log('bullets before', bs.length)
             for (var j = 0; j < bs.length; j++) {
                 var b = bs[j]
                 var collideEnemyBullets = collide(b, player)
@@ -109,14 +107,11 @@ class Scene extends GuaScene {
                 if (collideEnemy) {
                     // log('撞到敌机，敌机消失，敌机的子弹也消失', collideEnemy, e.x, e.y)
                     this.playerCrashed(e, particlesParams)
-                    // this.removeGoneElement(e)
                 } else if (collideEnemyBullets) {
                     // log('撞到子弹', collideEnemyBullets, b)
                     this.playerCrashed(b, particlesParams)
-                    // this.removeGoneElement(b)
                 }
             }
-            // log('bullets after', bs.length)
         }
     }
 
@@ -201,22 +196,4 @@ class Scene extends GuaScene {
         var scoreIndex = 12
         this.elements.splice(scoreIndex, 1, newScore)
     }
-    //
-    //
-    // recycleElements(element) {
-    //
-    // }
-    //
-    //
-    // removeGoneElement(elements) {
-    //     var es = []
-    //     for (var i = 0; i < elements.length; i++) {
-    //         var e = elements[i]
-    //         log(e.gone)
-    //         if (!e.gone) {
-    //             es.push(e)
-    //         }
-    //     }
-    //     return es
-    // }
 }
