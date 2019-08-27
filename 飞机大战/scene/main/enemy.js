@@ -6,6 +6,7 @@ class Enemy extends GuaImage {
         this.setup()
     }
     setup() {
+        this.name = 'enemy'
         this.speed = randomBetween(2, 5)
         this.x = randomBetween(0, 350)
         this.y = -randomBetween(0, 200)

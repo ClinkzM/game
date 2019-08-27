@@ -6,12 +6,23 @@ class Player extends GuaImage {
     setup() {
         this.speed = 10
         this.cooldown = 0
+        this.gone = false
+        this.bullets = []
     }
     update() {
         this.speed = config.player_speed
         if (this.cooldown > 0) {
             this.cooldown = this.cooldown - 1
         }
+    }
+    draw() {
+        if (this.gone) {
+            return
+        }
+        super.draw()
+    }
+    die() {
+        this.gone = true
     }
     fire() {
         if (this.cooldown == 0) {
@@ -22,7 +33,9 @@ class Player extends GuaImage {
             b.x = x
             b.y = y
             this.scene.addElement(b)
+            this.bullets.push(b)
         }
+        // log('this.bullets', this.bullets)
     }
 
     moveLeft() {

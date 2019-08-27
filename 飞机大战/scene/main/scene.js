@@ -26,10 +26,11 @@ class Scene extends GuaScene {
 
         this.addEnemies()
 
-        // add particles
-        // var ps = GuaParticleSystem.new(this.game)
-        // this.addElement(ps)
+        this.score = 0
+        var label = this.setScore()
+        this.addElement(label)
     }
+
 
     addEnemies() {
         var es = []
@@ -69,6 +70,12 @@ class Scene extends GuaScene {
         g.registerAction('j', function() {
             s.player.fire()
         })
+        // g.registerAction('k', function() {
+        //
+        // })
+        // g.registerAction('r', function() {
+        //
+        // })
     }
 
     update() {
@@ -76,51 +83,140 @@ class Scene extends GuaScene {
             return
         }
         super.update()
-        // this.removeBullets()
         this.playerDie()
+        this.killEnemy()
+        // log('this.elemets', this.elements)
     }
+
+
     playerDie() {
-        // for e in self.enemies:
-        //     for b in self.bullets:
-        //     x, y = b.sprite.position
-        //     # 如果碰撞到了，调用敌人的领盒饭方法
-        //     if e.sprite.contains(x, y):
-        //     # 这里只是改变了敌人是否去领盒饭的状态
-        //     # 并没有删除去领盒饭的敌人
-        //         e.lyhefj()
-        //     # 碰撞检测完成后，删除去领盒饭的敌人
-        //     # 调用函数，以免代码过长增加程序的复杂度
-                // self.remove_gone_enemies()
         var player = this.player
-        for (var i = 0; i < this.enemies.length; i++) {
-            var e = this.enemies[i]
-            var collideEnemy = rectIntersects(e, player) || rectIntersects(player, e)
-            for (var j = 0; j < e.bullets.length; j++) {
-                var b = e.bullets[j]
-                var collideEnemyBullets = rectIntersects(b, player) || rectIntersects(player, b)
+        var es = this.enemies
+        for (var i = 0; i < es.length; i++) {
+            var e = es[i]
+            var collideEnemy = collide(e, player)
+            var bs = e.bullets
+            // log('bullets before', bs.length)
+            for (var j = 0; j < bs.length; j++) {
+                var b = bs[j]
+                var collideEnemyBullets = collide(b, player)
+                var particlesParams = {
+                    x: player.x,
+                    y: player.y,
+                    number: 100,
+                    duration: 50,
+                }
                 if (collideEnemy) {
-                    log('撞到敌机', collideEnemy)
-                    e.gone = true
+                    // log('撞到敌机，敌机消失，敌机的子弹也消失', collideEnemy, e.x, e.y)
+                    this.playerCrashed(e, particlesParams)
+                    // this.removeGoneElement(e)
                 } else if (collideEnemyBullets) {
-                    log('撞到子弹', collideEnemyBullets, b)
-                    b.gone = true
-                    // log('b.gone', b.gone)
-                    // e.bullets.splice(j, 1)
+                    // log('撞到子弹', collideEnemyBullets, b)
+                    this.playerCrashed(b, particlesParams)
+                    // this.removeGoneElement(b)
                 }
             }
-            // e.bullets = this.removeGoneElements(e.bullets)
+            // log('bullets after', bs.length)
         }
-        // this.enemies = this.removeGoneElements(this.enemies)
     }
-    removeGoneElements(elements) {
-        var es = []
-        for (var i = 0; i < elements.length; i++) {
-            var e = elements[i]
-            log(e.gone)
-            if (!e.gone) {
-                es.push(e)
+
+    playerCrashed(element, particlesParams) {
+        if (element.name == 'enemy') {
+            element.bullets = []
+        } else if (element.name == 'enemyBullet') {
+            particlesParams.number = 50
+        }
+        var player = this.player
+        player.die()
+        element.die()
+        this.particles(particlesParams)
+        this.endGame(particlesParams.duration)
+    }
+
+
+    particles(particlesParams) {
+        var ps = GuaParticleSystem.new(this.game)
+        var p = particlesParams
+        ps.x = p.x
+        ps.y = p.y
+        ps.numberOfParticles = p.number
+        ps.duration = p.duration
+        this.addElement(ps)
+    }
+
+    endGame(delay) {
+        var game = this.game
+        var d = delay * 1000 * (1 / window.fps)
+        setTimeout(() => {
+            var end = SceneEnd.new(game)
+            game.replaceScene(end)
+        }, d)
+    }
+
+
+    killEnemy() {
+        var es = this.enemies
+        var bs = this.player.bullets
+        for (var i = 0; i < es.length; i++) {
+            var e = es[i]
+            for (var j = 0; j < bs.length; j++) {
+                var b = bs[j]
+                var hited = collide(e, b)
+                if (hited) {
+                    // log('子弹打到了敌机')
+                    var particlesParams = {
+                        x: e.x,
+                        y: e.y,
+                        number: 100,
+                        duration: 50,
+                    }
+                    this.particles(particlesParams)
+                    e.die()
+                    e.bullets = []
+                    var score = 10
+                    this.getScore(score)
+                }
             }
         }
-        return es
     }
+
+    setScore() {
+        var text = {
+            text: `当前得分：${this.score}`,
+            color: 'white',
+            font: '28px serif',
+            x: 0,
+            y: 580,
+        }
+        var scoreLabel = GuaLabel.new(this.game, text)
+        return scoreLabel
+    }
+
+    getScore(score) {
+        // log('得到分数')
+        this.score = this.score + score
+        var newScore = this.setScore()
+        // log('this.elements', this.elements)
+        // log('素材数组里分数的位置', this.elements[12], newScore)
+        var scoreIndex = 12
+        this.elements.splice(scoreIndex, 1, newScore)
+    }
+    //
+    //
+    // recycleElements(element) {
+    //
+    // }
+    //
+    //
+    // removeGoneElement(elements) {
+    //     var es = []
+    //     for (var i = 0; i < elements.length; i++) {
+    //         var e = elements[i]
+    //         log(e.gone)
+    //         if (!e.gone) {
+    //             es.push(e)
+    //         }
+    //     }
+    //     return es
+    // }
 }

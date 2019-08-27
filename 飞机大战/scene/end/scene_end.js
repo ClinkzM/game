@@ -11,7 +11,9 @@ class SceneEnd extends GuaScene {
         var text = {
             text: '游戏结束, 按 r 返回标题界面',
             color: 'red',
-            font: '24px serif'
+            font: '24px serif',
+            x: 20,
+            y: 200,
         }
         var label = GuaLabel.new(game, text)
         this.addElement(label)

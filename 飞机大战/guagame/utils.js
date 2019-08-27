@@ -32,6 +32,13 @@ const rectIntersects = function(a, b) {
     return false
 }
 
+
+var collide = function(collideThing, collidedThing) {
+    var c = rectIntersects(collideThing, collidedThing) || rectIntersects(collidedThing, collideThing)
+    return c
+}
+
+
 const randomBetween = function(start, end) {
     var n = Math.random() * (end - start + 1)
     return Math.floor(n + start)

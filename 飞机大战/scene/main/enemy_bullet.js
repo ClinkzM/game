@@ -5,6 +5,7 @@ class EnemyBullet extends GuaImage {
         this.setup()
     }
     setup() {
+        this.name = 'enemyBullet'
         this.gone = false
         this.speed = config.bullet_speed
         // this.speed = 1

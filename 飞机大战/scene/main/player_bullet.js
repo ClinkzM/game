@@ -11,4 +11,13 @@ class PlayerBullet extends GuaImage {
         // this.speed = config.bullet_speed
         this.y = this.y - this.speed
     }
+    die() {
+        this.gone = true
+    }
+    draw() {
+        if (this.gone) {
+            return
+        }
+        super.draw()
+    }
 }

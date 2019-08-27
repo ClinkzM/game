@@ -12,7 +12,9 @@ class SceneTitle extends GuaScene {
         var text = {
             text: '按 k 开始游戏',
             color: 'black',
-            font: '48px serif'
+            font: '48px serif',
+            x: 20,
+            y: 200,
         }
         var label = GuaLabel.new(game, text)
         this.addElement(label)
