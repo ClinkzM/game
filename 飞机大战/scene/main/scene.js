@@ -81,8 +81,9 @@ class Scene extends GuaScene {
             return
         }
         super.update()
-        this.playerDie()
+        // this.playerDie()
         this.killEnemy()
+        this.killBullets()
     }
 
 
@@ -144,29 +145,83 @@ class Scene extends GuaScene {
     }
 
 
+    // killEnemy() {
+    //     var es = this.enemies
+    //     var bs = this.player.bullets
+    //     for (var i = 0; i < es.length; i++) {
+    //         var e = es[i]
+    //         for (var j = 0; j < bs.length; j++) {
+    //             var b = bs[j]
+    //             var hited = collide(e, b)
+    //             if (hited) {
+    //                 // log('子弹打到了敌机')
+    //                 this.getScore()
+    //                 var particlesParams = {
+    //                     x: e.x,
+    //                     y: e.y,
+    //                     number: 100,
+    //                     duration: 50,
+    //                 }
+    //                 this.particles(particlesParams)
+    //                 e.die()
+    //                 b.die()
+    //                 // 修复分数一下加很多的问题
+    //                 e.setup()
+    //             }
+    //         }
+    //     }
+    // }
+    removeElement(element, elements) {
+        if (element.y < 0 && element.y > 600) {
+            elements.splice(k, 1)
+        }
+    }
+
+
+    playerBulletsAttack(element) {
+        var pbs = this.player.bullets
+        for (var k = 0; k < pbs.length; k++) {
+            var pb = pbs[k]
+            var hited = collide(element, pb)
+            if (hited) {
+                // log('子弹打到了敌机')
+                this.removeElement(pb, pbs)
+                this.getScore()
+                pb.die()
+                pbs.splice(k, 1)
+                element.die()
+                log('element', element)
+                var particlesParams = {
+                    x: element.x,
+                    y: element.y,
+                    number: 100,
+                    duration: 50,
+                }
+                this.particles(particlesParams)
+                // 修复分数一下加很多的问题
+                element.setup()
+            }
+        }
+    }
+
+
     killEnemy() {
         var es = this.enemies
-        var bs = this.player.bullets
         for (var i = 0; i < es.length; i++) {
             var e = es[i]
-            for (var j = 0; j < bs.length; j++) {
-                var b = bs[j]
-                var hited = collide(e, b)
-                if (hited) {
-                    // log('子弹打到了敌机')
-                    this.getScore()
-                    var particlesParams = {
-                        x: e.x,
-                        y: e.y,
-                        number: 100,
-                        duration: 50,
-                    }
-                    this.particles(particlesParams)
-                    e.die()
-                    b.die()
-                    // 修复分数一下加很多的问题
-                    e.setup()
-                }
+            this.playerBulletsAttack(e)
+        }
+    }
+
+    killBullets() {
+        var es = this.enemies
+        var pbs = this.player.bullets
+        for (var i = 0; i < es.length; i++) {
+            var e = es[i]
+            var ebs = e.bullets
+            for (var j = 0; j < ebs.length; j++) {
+                var eb = ebs[j]
+                this.playerBulletsAttack(eb)
             }
         }
     }
