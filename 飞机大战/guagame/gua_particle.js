@@ -1,6 +1,6 @@
 class GuaParticle extends GuaImage {
     constructor(game) {
-        super(game, 'bullet')
+        super(game, 'spark')
         this.setup()
     }
     setup() {

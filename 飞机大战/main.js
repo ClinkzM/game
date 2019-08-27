@@ -29,11 +29,12 @@ var __main = function() {
         enemy0: 'img/enemy0.png',
         enemy1: 'img/enemy1.png',
         enemy2: 'img/enemy2.png',
+        spark: 'img/spark.png'
     }
     var game = GuaGame.instance(30, images, function(g){
-        // var s = SceneTitle.new(g)
+        var s = SceneTitle.new(g)
         // var s = SceneEnd.new(g)
-        var s = Scene.new(g)
+        // var s = Scene.new(g)
         g.runWithScene(s)
     })
 

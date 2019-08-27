@@ -4,7 +4,9 @@ class PlayerBullet extends GuaImage {
         this.setup()
     }
     setup() {
+        this.name = 'playerBullet'
         this.speed = config.bullet_speed
+        this.gone = false
         // this.speed = 1
     }
     update() {

@@ -41,7 +41,7 @@ class Enemy extends GuaImage {
             this.cooldown = config.enemy_fire_cooldown
             var x = this.x + this.w / 2
             var y = this.y + this.h
-            var b = EnemyBullet.new(this.game, this.speed)
+            var b = EnemyBullet.new(this.game, this.y)
             b.x = x
             b.y = y
             this.bullets.push(b)

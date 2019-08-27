@@ -81,7 +81,7 @@ class Scene extends GuaScene {
             return
         }
         super.update()
-        // this.playerDie()
+        this.playerDie()
         this.killEnemy()
         this.killBullets()
     }
@@ -144,33 +144,7 @@ class Scene extends GuaScene {
         }, d)
     }
 
-
-    // killEnemy() {
-    //     var es = this.enemies
-    //     var bs = this.player.bullets
-    //     for (var i = 0; i < es.length; i++) {
-    //         var e = es[i]
-    //         for (var j = 0; j < bs.length; j++) {
-    //             var b = bs[j]
-    //             var hited = collide(e, b)
-    //             if (hited) {
-    //                 // log('子弹打到了敌机')
-    //                 this.getScore()
-    //                 var particlesParams = {
-    //                     x: e.x,
-    //                     y: e.y,
-    //                     number: 100,
-    //                     duration: 50,
-    //                 }
-    //                 this.particles(particlesParams)
-    //                 e.die()
-    //                 b.die()
-    //                 // 修复分数一下加很多的问题
-    //                 e.setup()
-    //             }
-    //         }
-    //     }
-    // }
+// 
     removeElement(element, elements) {
         if (element.y < 0 && element.y > 600) {
             elements.splice(k, 1)
@@ -184,13 +158,16 @@ class Scene extends GuaScene {
             var pb = pbs[k]
             var hited = collide(element, pb)
             if (hited) {
-                // log('子弹打到了敌机')
+                log('子弹打到了')
                 this.removeElement(pb, pbs)
                 this.getScore()
                 pb.die()
                 pbs.splice(k, 1)
                 element.die()
-                log('element', element)
+                if (element.bullets != undefined) {
+                    element.bullets = []
+                }
+                log('element', element.gone)
                 var particlesParams = {
                     x: element.x,
                     y: element.y,
@@ -198,8 +175,6 @@ class Scene extends GuaScene {
                     duration: 50,
                 }
                 this.particles(particlesParams)
-                // 修复分数一下加很多的问题
-                element.setup()
             }
         }
     }
