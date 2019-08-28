@@ -32,9 +32,9 @@ var __main = function() {
         spark: 'img/spark.png'
     }
     var game = GuaGame.instance(30, images, function(g){
-        var s = SceneTitle.new(g)
+        // var s = SceneTitle.new(g)
         // var s = SceneEnd.new(g)
-        // var s = Scene.new(g)
+        var s = Scene.new(g)
         g.runWithScene(s)
     })
 

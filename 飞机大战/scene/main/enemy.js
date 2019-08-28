@@ -14,7 +14,7 @@ class Enemy extends GuaImage {
         this.w = this.texture.width
         this.h = this.texture.height
         this.bullets = []
-        this.gone = false
+        // this.gone = false
     }
     update() {
         this.y = this.y + this.speed
@@ -28,6 +28,10 @@ class Enemy extends GuaImage {
             this.cooldown = this.cooldown - 1
         } else {
             this.cooldown = randomBetween(6, 10) - this.speed
+        }
+
+        if (this.gone) {
+            this.bullets = []
         }
     }
     draw() {
