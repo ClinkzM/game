@@ -144,7 +144,7 @@ class Scene extends GuaScene {
         }, d)
     }
 
-// 
+//
     removeElement(element, elements) {
         if (element.y < 0 && element.y > 600) {
             elements.splice(k, 1)
@@ -158,7 +158,7 @@ class Scene extends GuaScene {
             var pb = pbs[k]
             var hited = collide(element, pb)
             if (hited) {
-                log('子弹打到了')
+                log('子弹打到了敌人')
                 this.removeElement(pb, pbs)
                 this.getScore()
                 pb.die()
@@ -175,6 +175,10 @@ class Scene extends GuaScene {
                     duration: 50,
                 }
                 this.particles(particlesParams)
+                if (element.name == 'enemy') {
+                    log('enemy', element)
+                    element.bullets = []
+                }
             }
         }
     }
