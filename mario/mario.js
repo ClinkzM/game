@@ -89,6 +89,11 @@ const bindEvents = () => {
         let offset = Number(event.target.dataset.offset)
         actions[action] && actions[action](offset)
     })
+    window.addEventListener('keydown', event => {
+        if (event.key == 'p') {
+            window.paused = !window.paused
+        }
+    })
 }
 
 const drawSprite = data => {
@@ -109,6 +114,7 @@ const drawSprite = data => {
 }
 
 const __main = () => {
+    window.paused = false
     window.offset = 32784
     e('h3').innerHTML = window.offset
     let tileOffset = 32784
@@ -126,8 +132,12 @@ const __main = () => {
             setInterval(function() {
                 let offset = tileOffset + step * bytesPerSprite
                 drawSprite(bytes.slice(offset))
-                step++
-                step %= 4
+                if (window.paused) {
+                    // 暂停
+                } else {
+                    step++
+                    step %= 4
+                }
             }, 200)
         },
     }

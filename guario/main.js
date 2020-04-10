@@ -57,20 +57,28 @@ var bindEvents = function() {
     })
 }
 
+const ajax = request => {
+    let r  = new XMLHttpRequest()
+    r.open('GET', request.url, true)
+    r.responseType = 'arraybuffer'
+    r.onreadystatechange = event => {
+        if (r.readyState == 4) {
+            request.callback(r.response)
+        }
+    }
+    r.send()
+}
+
 var __main = function() {
     var images = {
         // flappy bird images
-
-        // scene images
-        bg: 'img/scene/bg.png',
-        pipe: 'img/scene/pipe.png',
-        ground: 'img/scene/ground.png',
-        gameover: 'img/scene/gameover.png',
-
-        // bird
+        bg: 'img/bird/bg.png',
+        pipe: 'img/bird/pipe.png',
+        ground: 'img/bird/ground.png',
         b0: 'img/bird/b0.png',
         b1: 'img/bird/b1.png',
         b2: 'img/bird/b2.png',
+        gameover: 'img/bird/gameover.png',
 
         // score
         s0: 'img/score/0.png',
@@ -84,13 +92,25 @@ var __main = function() {
         s8: 'img/score/8.png',
         s9: 'img/score/9.png',
     }
-    var game = GuaGame.instance(30, images, function(g){
-        var s = SceneTitle.new(g)
-        // var s = Scene.new(g)
-        g.runWithScene(s)
-    })
 
-    enableDebugMode(game, true)
+    let request = {
+        url: 'mario.nes',
+        callback(r) {
+            let bytes = new Uint8Array(r)
+            window.bytes = bytes
+            log('mario file', window.bytes.length)
+            var game = GuaGame.instance(30, images, function(g){
+                // var s = SceneTitle.new(g)
+                var s = Scene.new(g)
+                g.runWithScene(s)
+                enableDebugMode(game, true)
+            })
+        },
+    }
+    ajax(request)
+
+
+
 
     // 从配置文件生成 HTML 控件
     insertControls()
