@@ -69,6 +69,10 @@ button {
     background-color: white;
 }
 
+.zero {
+    font-size: 0;
+}
+
 .flag {
     background-image: url(minesweeper_pics/flag.svg);
     background-size: 27px;
