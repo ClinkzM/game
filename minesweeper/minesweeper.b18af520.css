@@ -2,7 +2,7 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
 }
 .container {
-    margin-top: 1rem;
+    margin-top: 16px;
 }
 .minesweeper {
     text-align: center;
@@ -33,7 +33,7 @@ button {
 }
 
 .mine-box {
-    width: 297px;
+    width: 306px;
 }
 
 .row {
